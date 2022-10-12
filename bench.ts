@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import Benchmark from "benchmark";
-import * as sharedstreestsPbf from "./index";
+import * as sharedstreestsPbf from "./index.js";
 
 const geometryBuffer = fs.readFileSync(path.join("test", "in", "11-602-769.geometry.pbf"));
 const intersectionBuffer = fs.readFileSync(path.join("test", "in", "11-602-769.intersection.pbf"));

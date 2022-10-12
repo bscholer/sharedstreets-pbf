@@ -1,13 +1,13 @@
 /*eslint-disable block-scoped-var, no-redeclare, no-control-regex, no-prototype-builtins*/
 "use strict";
 
-var $protobuf = require("protobufjs/minimal");
+import $protobuf from "protobufjs";
 
 // Common aliases
 var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
 
 // Exported root namespace
-var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
+export var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
 /**
  * PeriodSize enum.
@@ -682,5 +682,3 @@ $root.WeeklyCycle = (function() {
 
     return WeeklyCycle;
 })();
-
-module.exports = $root;

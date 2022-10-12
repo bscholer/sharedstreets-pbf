@@ -2,7 +2,7 @@
 
 const path = require('path')
 const glob = require('glob')
-const { pbjs, pbts } = require('protobufjs/cli')
+const { pbjs, pbts } = require('protobufjs-cli')
 
 glob.sync(path.join(__dirname, '..', 'sharedstreets-ref-system', 'proto', '*.proto')).forEach(filepath => {
   // Filepaths

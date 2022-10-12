@@ -1,12 +1,14 @@
-import { Reader, util } from "protobufjs/minimal";
+import protobufjs from "protobufjs";
 import {
   SharedStreetsGeometry,
   SharedStreetsIntersection,
   SharedStreetsMetadata,
   SharedStreetsReference,
 } from "sharedstreets-types";
-import { SharedStreetsProto } from "./proto";
-export * from "./proto/index";
+import { SharedStreetsProto } from "./proto/index.js";
+export * from "./proto/index.js";
+
+const { Reader, util } = protobufjs;
 
 /**
  * Geometry Pbf

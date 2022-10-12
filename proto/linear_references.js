@@ -1,13 +1,14 @@
 /*eslint-disable block-scoped-var, no-redeclare, no-control-regex, no-prototype-builtins*/
 "use strict";
 
-var $protobuf = require("protobufjs/minimal");
+import $protobuf from "protobufjs";
+import exp from "constants";
 
 // Common aliases
 var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
 
 // Exported root namespace
-var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
+export var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
 $root.LinearReference = (function() {
 
@@ -869,4 +870,3 @@ $root.SharedStreetsBinnedLinearReferences = (function() {
     return SharedStreetsBinnedLinearReferences;
 })();
 
-module.exports = $root;
