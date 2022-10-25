@@ -1,5 +1,5 @@
 import * as $protobuf from "protobufjs";
-
+import Long = require("long");
 /** Properties of a LinearReference. */
 export interface ILinearReference {
 
@@ -23,7 +23,7 @@ export class LinearReference implements ILinearReference {
     public startDistance: (number|Long);
 
     /** LinearReference endDistance. */
-    public endDistance: (number|Long);
+    public endDistance?: (number|Long|null);
 
     /** LinearReference endDistancePresent. */
     public endDistancePresent?: "endDistance";
@@ -97,6 +97,13 @@ export class LinearReference implements ILinearReference {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for LinearReference
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Properties of a SharedStreetsLinearReferences. */
@@ -199,6 +206,225 @@ export class SharedStreetsLinearReferences implements ISharedStreetsLinearRefere
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for SharedStreetsLinearReferences
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
+}
+
+/** Properties of a DataBin. */
+export interface IDataBin {
+
+    /** DataBin dataType */
+    dataType?: (string[]|null);
+
+    /** DataBin count */
+    count?: ((number|Long)[]|null);
+
+    /** DataBin value */
+    value?: (number[]|null);
+}
+
+/** Represents a DataBin. */
+export class DataBin implements IDataBin {
+
+    /**
+     * Constructs a new DataBin.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IDataBin);
+
+    /** DataBin dataType. */
+    public dataType: string[];
+
+    /** DataBin count. */
+    public count: (number|Long)[];
+
+    /** DataBin value. */
+    public value: number[];
+
+    /**
+     * Creates a new DataBin instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns DataBin instance
+     */
+    public static create(properties?: IDataBin): DataBin;
+
+    /**
+     * Encodes the specified DataBin message. Does not implicitly {@link DataBin.verify|verify} messages.
+     * @param message DataBin message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IDataBin, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified DataBin message, length delimited. Does not implicitly {@link DataBin.verify|verify} messages.
+     * @param message DataBin message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IDataBin, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a DataBin message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns DataBin
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): DataBin;
+
+    /**
+     * Decodes a DataBin message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns DataBin
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): DataBin;
+
+    /**
+     * Verifies a DataBin message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a DataBin message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns DataBin
+     */
+    public static fromObject(object: { [k: string]: any }): DataBin;
+
+    /**
+     * Creates a plain object from a DataBin message. Also converts values to other types if specified.
+     * @param message DataBin
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: DataBin, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this DataBin to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for DataBin
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
+}
+
+/** Properties of a BinnedPeriodicData. */
+export interface IBinnedPeriodicData {
+
+    /** BinnedPeriodicData periodOffset */
+    periodOffset?: (number[]|null);
+
+    /** BinnedPeriodicData bins */
+    bins?: (IDataBin[]|null);
+}
+
+/** Represents a BinnedPeriodicData. */
+export class BinnedPeriodicData implements IBinnedPeriodicData {
+
+    /**
+     * Constructs a new BinnedPeriodicData.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IBinnedPeriodicData);
+
+    /** BinnedPeriodicData periodOffset. */
+    public periodOffset: number[];
+
+    /** BinnedPeriodicData bins. */
+    public bins: IDataBin[];
+
+    /**
+     * Creates a new BinnedPeriodicData instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns BinnedPeriodicData instance
+     */
+    public static create(properties?: IBinnedPeriodicData): BinnedPeriodicData;
+
+    /**
+     * Encodes the specified BinnedPeriodicData message. Does not implicitly {@link BinnedPeriodicData.verify|verify} messages.
+     * @param message BinnedPeriodicData message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IBinnedPeriodicData, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified BinnedPeriodicData message, length delimited. Does not implicitly {@link BinnedPeriodicData.verify|verify} messages.
+     * @param message BinnedPeriodicData message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IBinnedPeriodicData, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a BinnedPeriodicData message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns BinnedPeriodicData
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): BinnedPeriodicData;
+
+    /**
+     * Decodes a BinnedPeriodicData message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns BinnedPeriodicData
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): BinnedPeriodicData;
+
+    /**
+     * Verifies a BinnedPeriodicData message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a BinnedPeriodicData message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns BinnedPeriodicData
+     */
+    public static fromObject(object: { [k: string]: any }): BinnedPeriodicData;
+
+    /**
+     * Creates a plain object from a BinnedPeriodicData message. Also converts values to other types if specified.
+     * @param message BinnedPeriodicData
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: BinnedPeriodicData, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this BinnedPeriodicData to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for BinnedPeriodicData
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Properties of a SharedStreetsBinnedLinearReferences. */
@@ -206,6 +432,9 @@ export interface ISharedStreetsBinnedLinearReferences {
 
     /** SharedStreetsBinnedLinearReferences referenceId */
     referenceId?: (string|null);
+
+    /** SharedStreetsBinnedLinearReferences scaledCounts */
+    scaledCounts?: (boolean|null);
 
     /** SharedStreetsBinnedLinearReferences referenceLength */
     referenceLength?: (number|Long|null);
@@ -216,8 +445,8 @@ export interface ISharedStreetsBinnedLinearReferences {
     /** SharedStreetsBinnedLinearReferences binPosition */
     binPosition?: (number[]|null);
 
-    /** SharedStreetsBinnedLinearReferences binValue */
-    binValue?: (number[]|null);
+    /** SharedStreetsBinnedLinearReferences bins */
+    bins?: (IDataBin[]|null);
 }
 
 /** Represents a SharedStreetsBinnedLinearReferences. */
@@ -232,6 +461,9 @@ export class SharedStreetsBinnedLinearReferences implements ISharedStreetsBinned
     /** SharedStreetsBinnedLinearReferences referenceId. */
     public referenceId: string;
 
+    /** SharedStreetsBinnedLinearReferences scaledCounts. */
+    public scaledCounts: boolean;
+
     /** SharedStreetsBinnedLinearReferences referenceLength. */
     public referenceLength: (number|Long);
 
@@ -241,8 +473,8 @@ export class SharedStreetsBinnedLinearReferences implements ISharedStreetsBinned
     /** SharedStreetsBinnedLinearReferences binPosition. */
     public binPosition: number[];
 
-    /** SharedStreetsBinnedLinearReferences binValue. */
-    public binValue: number[];
+    /** SharedStreetsBinnedLinearReferences bins. */
+    public bins: IDataBin[];
 
     /**
      * Creates a new SharedStreetsBinnedLinearReferences instance using the specified properties.
@@ -313,4 +545,138 @@ export class SharedStreetsBinnedLinearReferences implements ISharedStreetsBinned
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for SharedStreetsBinnedLinearReferences
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
+}
+
+/** PeriodSize enum. */
+export enum PeriodSize {
+    OneSecond = 0,
+    FiveSeconds = 1,
+    TenSeconds = 2,
+    FifteenSeconds = 3,
+    ThirtySeconds = 4,
+    OneMinute = 5,
+    FiveMinutes = 6,
+    TenMinutes = 7,
+    FifteenMinutes = 8,
+    ThirtyMinutes = 9,
+    OneHour = 10,
+    OneDay = 11,
+    OneWeek = 12,
+    OneMonth = 13,
+    OneYear = 14
+}
+
+/** Represents a SharedStreetsWeeklyBinnedLinearReferences. */
+export class SharedStreetsWeeklyBinnedLinearReferences implements ISharedStreetsWeeklyBinnedLinearReferences {
+
+    /**
+     * Constructs a new SharedStreetsWeeklyBinnedLinearReferences.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: ISharedStreetsWeeklyBinnedLinearReferences);
+
+    /** SharedStreetsWeeklyBinnedLinearReferences referenceId. */
+    public referenceId: string;
+
+    /** SharedStreetsWeeklyBinnedLinearReferences periodSize. */
+    public periodSize: PeriodSize;
+
+    /** SharedStreetsWeeklyBinnedLinearReferences scaledCounts. */
+    public scaledCounts: boolean;
+
+    /** SharedStreetsWeeklyBinnedLinearReferences referenceLength. */
+    public referenceLength: (number|Long);
+
+    /** SharedStreetsWeeklyBinnedLinearReferences numberOfBins. */
+    public numberOfBins: number;
+
+    /** SharedStreetsWeeklyBinnedLinearReferences binPosition. */
+    public binPosition: number[];
+
+    /** SharedStreetsWeeklyBinnedLinearReferences binnedPeriodicData. */
+    public binnedPeriodicData: IBinnedPeriodicData[];
+
+    /**
+     * Creates a new SharedStreetsWeeklyBinnedLinearReferences instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns SharedStreetsWeeklyBinnedLinearReferences instance
+     */
+    public static create(properties?: ISharedStreetsWeeklyBinnedLinearReferences): SharedStreetsWeeklyBinnedLinearReferences;
+
+    /**
+     * Encodes the specified SharedStreetsWeeklyBinnedLinearReferences message. Does not implicitly {@link SharedStreetsWeeklyBinnedLinearReferences.verify|verify} messages.
+     * @param message SharedStreetsWeeklyBinnedLinearReferences message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: ISharedStreetsWeeklyBinnedLinearReferences, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified SharedStreetsWeeklyBinnedLinearReferences message, length delimited. Does not implicitly {@link SharedStreetsWeeklyBinnedLinearReferences.verify|verify} messages.
+     * @param message SharedStreetsWeeklyBinnedLinearReferences message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: ISharedStreetsWeeklyBinnedLinearReferences, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a SharedStreetsWeeklyBinnedLinearReferences message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns SharedStreetsWeeklyBinnedLinearReferences
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SharedStreetsWeeklyBinnedLinearReferences;
+
+    /**
+     * Decodes a SharedStreetsWeeklyBinnedLinearReferences message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns SharedStreetsWeeklyBinnedLinearReferences
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SharedStreetsWeeklyBinnedLinearReferences;
+
+    /**
+     * Verifies a SharedStreetsWeeklyBinnedLinearReferences message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a SharedStreetsWeeklyBinnedLinearReferences message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns SharedStreetsWeeklyBinnedLinearReferences
+     */
+    public static fromObject(object: { [k: string]: any }): SharedStreetsWeeklyBinnedLinearReferences;
+
+    /**
+     * Creates a plain object from a SharedStreetsWeeklyBinnedLinearReferences message. Also converts values to other types if specified.
+     * @param message SharedStreetsWeeklyBinnedLinearReferences
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: SharedStreetsWeeklyBinnedLinearReferences, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this SharedStreetsWeeklyBinnedLinearReferences to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for SharedStreetsWeeklyBinnedLinearReferences
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }

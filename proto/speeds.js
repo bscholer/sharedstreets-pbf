@@ -1,18 +1,16 @@
-/*eslint-disable block-scoped-var, no-redeclare, no-control-regex, no-prototype-builtins*/
-"use strict";
-
-import $protobuf from "protobufjs";
+/*eslint-disable block-scoped-var, id-length, no-control-regex, no-magic-numbers, no-prototype-builtins, no-redeclare, no-shadow, no-var, sort-vars*/
+import * as $protobuf from "protobufjs/minimal";
 
 // Common aliases
-var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
+const $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
 
 // Exported root namespace
-export var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
+const $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
 /**
  * PeriodSize enum.
  * @exports PeriodSize
- * @enum {string}
+ * @enum {number}
  * @property {number} OneSecond=0 OneSecond value
  * @property {number} FiveSeconds=1 FiveSeconds value
  * @property {number} TenSeconds=2 TenSeconds value
@@ -29,8 +27,8 @@ export var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {
  * @property {number} OneMonth=13 OneMonth value
  * @property {number} OneYear=14 OneYear value
  */
-$root.PeriodSize = (function() {
-    var valuesById = {}, values = Object.create(valuesById);
+export const PeriodSize = $root.PeriodSize = (() => {
+    const valuesById = {}, values = Object.create(valuesById);
     values[valuesById[0] = "OneSecond"] = 0;
     values[valuesById[1] = "FiveSeconds"] = 1;
     values[valuesById[2] = "TenSeconds"] = 2;
@@ -49,7 +47,7 @@ $root.PeriodSize = (function() {
     return values;
 })();
 
-$root.TemporalPeriod = (function() {
+export const TemporalPeriod = $root.TemporalPeriod = (() => {
 
     /**
      * Properties of a TemporalPeriod.
@@ -69,7 +67,7 @@ $root.TemporalPeriod = (function() {
      */
     function TemporalPeriod(properties) {
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -114,9 +112,9 @@ $root.TemporalPeriod = (function() {
     TemporalPeriod.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.periodSize != null && message.hasOwnProperty("periodSize"))
+        if (message.periodSize != null && Object.hasOwnProperty.call(message, "periodSize"))
             writer.uint32(/* id 1, wireType 0 =*/8).int32(message.periodSize);
-        if (message.periodOffset != null && message.hasOwnProperty("periodOffset"))
+        if (message.periodOffset != null && Object.hasOwnProperty.call(message, "periodOffset"))
             writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.periodOffset);
         return writer;
     };
@@ -148,16 +146,18 @@ $root.TemporalPeriod = (function() {
     TemporalPeriod.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.TemporalPeriod();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.TemporalPeriod();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.periodSize = reader.int32();
-                break;
-            case 2:
-                message.periodOffset = reader.uint64();
-                break;
+            case 1: {
+                    message.periodSize = reader.int32();
+                    break;
+                }
+            case 2: {
+                    message.periodOffset = reader.uint64();
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -231,8 +231,14 @@ $root.TemporalPeriod = (function() {
     TemporalPeriod.fromObject = function fromObject(object) {
         if (object instanceof $root.TemporalPeriod)
             return object;
-        var message = new $root.TemporalPeriod();
+        let message = new $root.TemporalPeriod();
         switch (object.periodSize) {
+        default:
+            if (typeof object.periodSize === "number") {
+                message.periodSize = object.periodSize;
+                break;
+            }
+            break;
         case "OneSecond":
         case 0:
             message.periodSize = 0;
@@ -318,17 +324,17 @@ $root.TemporalPeriod = (function() {
     TemporalPeriod.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.defaults) {
             object.periodSize = options.enums === String ? "OneSecond" : 0;
             if ($util.Long) {
-                var long = new $util.Long(0, 0, true);
+                let long = new $util.Long(0, 0, true);
                 object.periodOffset = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
             } else
                 object.periodOffset = options.longs === String ? "0" : 0;
         }
         if (message.periodSize != null && message.hasOwnProperty("periodSize"))
-            object.periodSize = options.enums === String ? $root.PeriodSize[message.periodSize] : message.periodSize;
+            object.periodSize = options.enums === String ? $root.PeriodSize[message.periodSize] === undefined ? message.periodSize : $root.PeriodSize[message.periodSize] : message.periodSize;
         if (message.periodOffset != null && message.hasOwnProperty("periodOffset"))
             if (typeof message.periodOffset === "number")
                 object.periodOffset = options.longs === String ? String(message.periodOffset) : message.periodOffset;
@@ -348,10 +354,25 @@ $root.TemporalPeriod = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for TemporalPeriod
+     * @function getTypeUrl
+     * @memberof TemporalPeriod
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    TemporalPeriod.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/TemporalPeriod";
+    };
+
     return TemporalPeriod;
 })();
 
-$root.WeeklyCycle = (function() {
+export const WeeklyCycle = $root.WeeklyCycle = (() => {
 
     /**
      * Properties of a WeeklyCycle.
@@ -373,7 +394,7 @@ $root.WeeklyCycle = (function() {
      */
     function WeeklyCycle(properties) {
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -434,13 +455,13 @@ $root.WeeklyCycle = (function() {
     WeeklyCycle.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.year != null && message.hasOwnProperty("year"))
+        if (message.year != null && Object.hasOwnProperty.call(message, "year"))
             writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.year);
-        if (message.month != null && message.hasOwnProperty("month"))
+        if (message.month != null && Object.hasOwnProperty.call(message, "month"))
             writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.month);
-        if (message.day != null && message.hasOwnProperty("day"))
+        if (message.day != null && Object.hasOwnProperty.call(message, "day"))
             writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.day);
-        if (message.periodSize != null && message.hasOwnProperty("periodSize"))
+        if (message.periodSize != null && Object.hasOwnProperty.call(message, "periodSize"))
             writer.uint32(/* id 4, wireType 0 =*/32).int32(message.periodSize);
         return writer;
     };
@@ -472,22 +493,26 @@ $root.WeeklyCycle = (function() {
     WeeklyCycle.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.WeeklyCycle();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.WeeklyCycle();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.year = reader.uint32();
-                break;
-            case 2:
-                message.month = reader.uint32();
-                break;
-            case 3:
-                message.day = reader.uint32();
-                break;
-            case 4:
-                message.periodSize = reader.int32();
-                break;
+            case 1: {
+                    message.year = reader.uint32();
+                    break;
+                }
+            case 2: {
+                    message.month = reader.uint32();
+                    break;
+                }
+            case 3: {
+                    message.day = reader.uint32();
+                    break;
+                }
+            case 4: {
+                    message.periodSize = reader.int32();
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -567,7 +592,7 @@ $root.WeeklyCycle = (function() {
     WeeklyCycle.fromObject = function fromObject(object) {
         if (object instanceof $root.WeeklyCycle)
             return object;
-        var message = new $root.WeeklyCycle();
+        let message = new $root.WeeklyCycle();
         if (object.year != null)
             message.year = object.year >>> 0;
         if (object.month != null)
@@ -575,6 +600,12 @@ $root.WeeklyCycle = (function() {
         if (object.day != null)
             message.day = object.day >>> 0;
         switch (object.periodSize) {
+        default:
+            if (typeof object.periodSize === "number") {
+                message.periodSize = object.periodSize;
+                break;
+            }
+            break;
         case "OneSecond":
         case 0:
             message.periodSize = 0;
@@ -651,7 +682,7 @@ $root.WeeklyCycle = (function() {
     WeeklyCycle.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.defaults) {
             object.year = 0;
             object.month = 0;
@@ -665,7 +696,7 @@ $root.WeeklyCycle = (function() {
         if (message.day != null && message.hasOwnProperty("day"))
             object.day = message.day;
         if (message.periodSize != null && message.hasOwnProperty("periodSize"))
-            object.periodSize = options.enums === String ? $root.PeriodSize[message.periodSize] : message.periodSize;
+            object.periodSize = options.enums === String ? $root.PeriodSize[message.periodSize] === undefined ? message.periodSize : $root.PeriodSize[message.periodSize] : message.periodSize;
         return object;
     };
 
@@ -680,10 +711,25 @@ $root.WeeklyCycle = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for WeeklyCycle
+     * @function getTypeUrl
+     * @memberof WeeklyCycle
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    WeeklyCycle.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/WeeklyCycle";
+    };
+
     return WeeklyCycle;
 })();
 
-$root.SpeedHistogram = (function() {
+export const SpeedHistogram = $root.SpeedHistogram = (() => {
 
     /**
      * Properties of a SpeedHistogram.
@@ -705,7 +751,7 @@ $root.SpeedHistogram = (function() {
         this.speedBin = [];
         this.observationCount = [];
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -752,13 +798,13 @@ $root.SpeedHistogram = (function() {
             writer = $Writer.create();
         if (message.speedBin != null && message.speedBin.length) {
             writer.uint32(/* id 1, wireType 2 =*/10).fork();
-            for (var i = 0; i < message.speedBin.length; ++i)
+            for (let i = 0; i < message.speedBin.length; ++i)
                 writer.uint32(message.speedBin[i]);
             writer.ldelim();
         }
         if (message.observationCount != null && message.observationCount.length) {
             writer.uint32(/* id 2, wireType 2 =*/18).fork();
-            for (var i = 0; i < message.observationCount.length; ++i)
+            for (let i = 0; i < message.observationCount.length; ++i)
                 writer.uint32(message.observationCount[i]);
             writer.ldelim();
         }
@@ -792,30 +838,32 @@ $root.SpeedHistogram = (function() {
     SpeedHistogram.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SpeedHistogram();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.SpeedHistogram();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                if (!(message.speedBin && message.speedBin.length))
-                    message.speedBin = [];
-                if ((tag & 7) === 2) {
-                    var end2 = reader.uint32() + reader.pos;
-                    while (reader.pos < end2)
+            case 1: {
+                    if (!(message.speedBin && message.speedBin.length))
+                        message.speedBin = [];
+                    if ((tag & 7) === 2) {
+                        let end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.speedBin.push(reader.uint32());
+                    } else
                         message.speedBin.push(reader.uint32());
-                } else
-                    message.speedBin.push(reader.uint32());
-                break;
-            case 2:
-                if (!(message.observationCount && message.observationCount.length))
-                    message.observationCount = [];
-                if ((tag & 7) === 2) {
-                    var end2 = reader.uint32() + reader.pos;
-                    while (reader.pos < end2)
+                    break;
+                }
+            case 2: {
+                    if (!(message.observationCount && message.observationCount.length))
+                        message.observationCount = [];
+                    if ((tag & 7) === 2) {
+                        let end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.observationCount.push(reader.uint32());
+                    } else
                         message.observationCount.push(reader.uint32());
-                } else
-                    message.observationCount.push(reader.uint32());
-                break;
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -854,14 +902,14 @@ $root.SpeedHistogram = (function() {
         if (message.speedBin != null && message.hasOwnProperty("speedBin")) {
             if (!Array.isArray(message.speedBin))
                 return "speedBin: array expected";
-            for (var i = 0; i < message.speedBin.length; ++i)
+            for (let i = 0; i < message.speedBin.length; ++i)
                 if (!$util.isInteger(message.speedBin[i]))
                     return "speedBin: integer[] expected";
         }
         if (message.observationCount != null && message.hasOwnProperty("observationCount")) {
             if (!Array.isArray(message.observationCount))
                 return "observationCount: array expected";
-            for (var i = 0; i < message.observationCount.length; ++i)
+            for (let i = 0; i < message.observationCount.length; ++i)
                 if (!$util.isInteger(message.observationCount[i]))
                     return "observationCount: integer[] expected";
         }
@@ -879,19 +927,19 @@ $root.SpeedHistogram = (function() {
     SpeedHistogram.fromObject = function fromObject(object) {
         if (object instanceof $root.SpeedHistogram)
             return object;
-        var message = new $root.SpeedHistogram();
+        let message = new $root.SpeedHistogram();
         if (object.speedBin) {
             if (!Array.isArray(object.speedBin))
                 throw TypeError(".SpeedHistogram.speedBin: array expected");
             message.speedBin = [];
-            for (var i = 0; i < object.speedBin.length; ++i)
+            for (let i = 0; i < object.speedBin.length; ++i)
                 message.speedBin[i] = object.speedBin[i] >>> 0;
         }
         if (object.observationCount) {
             if (!Array.isArray(object.observationCount))
                 throw TypeError(".SpeedHistogram.observationCount: array expected");
             message.observationCount = [];
-            for (var i = 0; i < object.observationCount.length; ++i)
+            for (let i = 0; i < object.observationCount.length; ++i)
                 message.observationCount[i] = object.observationCount[i] >>> 0;
         }
         return message;
@@ -909,19 +957,19 @@ $root.SpeedHistogram = (function() {
     SpeedHistogram.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.arrays || options.defaults) {
             object.speedBin = [];
             object.observationCount = [];
         }
         if (message.speedBin && message.speedBin.length) {
             object.speedBin = [];
-            for (var j = 0; j < message.speedBin.length; ++j)
+            for (let j = 0; j < message.speedBin.length; ++j)
                 object.speedBin[j] = message.speedBin[j];
         }
         if (message.observationCount && message.observationCount.length) {
             object.observationCount = [];
-            for (var j = 0; j < message.observationCount.length; ++j)
+            for (let j = 0; j < message.observationCount.length; ++j)
                 object.observationCount[j] = message.observationCount[j];
         }
         return object;
@@ -938,23 +986,881 @@ $root.SpeedHistogram = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for SpeedHistogram
+     * @function getTypeUrl
+     * @memberof SpeedHistogram
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    SpeedHistogram.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/SpeedHistogram";
+    };
+
     return SpeedHistogram;
 })();
 
-$root.SharedStreetsWeeklySpeeds = (function() {
+export const SpeedHistogramByPeriod = $root.SpeedHistogramByPeriod = (() => {
+
+    /**
+     * Properties of a SpeedHistogramByPeriod.
+     * @exports ISpeedHistogramByPeriod
+     * @interface ISpeedHistogramByPeriod
+     * @property {Array.<number>|null} [periodOffset] SpeedHistogramByPeriod periodOffset
+     * @property {Array.<ISpeedHistogram>|null} [histogram] SpeedHistogramByPeriod histogram
+     */
+
+    /**
+     * Constructs a new SpeedHistogramByPeriod.
+     * @exports SpeedHistogramByPeriod
+     * @classdesc Represents a SpeedHistogramByPeriod.
+     * @implements ISpeedHistogramByPeriod
+     * @constructor
+     * @param {ISpeedHistogramByPeriod=} [properties] Properties to set
+     */
+    function SpeedHistogramByPeriod(properties) {
+        this.periodOffset = [];
+        this.histogram = [];
+        if (properties)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * SpeedHistogramByPeriod periodOffset.
+     * @member {Array.<number>} periodOffset
+     * @memberof SpeedHistogramByPeriod
+     * @instance
+     */
+    SpeedHistogramByPeriod.prototype.periodOffset = $util.emptyArray;
+
+    /**
+     * SpeedHistogramByPeriod histogram.
+     * @member {Array.<ISpeedHistogram>} histogram
+     * @memberof SpeedHistogramByPeriod
+     * @instance
+     */
+    SpeedHistogramByPeriod.prototype.histogram = $util.emptyArray;
+
+    /**
+     * Creates a new SpeedHistogramByPeriod instance using the specified properties.
+     * @function create
+     * @memberof SpeedHistogramByPeriod
+     * @static
+     * @param {ISpeedHistogramByPeriod=} [properties] Properties to set
+     * @returns {SpeedHistogramByPeriod} SpeedHistogramByPeriod instance
+     */
+    SpeedHistogramByPeriod.create = function create(properties) {
+        return new SpeedHistogramByPeriod(properties);
+    };
+
+    /**
+     * Encodes the specified SpeedHistogramByPeriod message. Does not implicitly {@link SpeedHistogramByPeriod.verify|verify} messages.
+     * @function encode
+     * @memberof SpeedHistogramByPeriod
+     * @static
+     * @param {ISpeedHistogramByPeriod} message SpeedHistogramByPeriod message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    SpeedHistogramByPeriod.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        if (message.periodOffset != null && message.periodOffset.length) {
+            writer.uint32(/* id 1, wireType 2 =*/10).fork();
+            for (let i = 0; i < message.periodOffset.length; ++i)
+                writer.uint32(message.periodOffset[i]);
+            writer.ldelim();
+        }
+        if (message.histogram != null && message.histogram.length)
+            for (let i = 0; i < message.histogram.length; ++i)
+                $root.SpeedHistogram.encode(message.histogram[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+        return writer;
+    };
+
+    /**
+     * Encodes the specified SpeedHistogramByPeriod message, length delimited. Does not implicitly {@link SpeedHistogramByPeriod.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof SpeedHistogramByPeriod
+     * @static
+     * @param {ISpeedHistogramByPeriod} message SpeedHistogramByPeriod message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    SpeedHistogramByPeriod.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes a SpeedHistogramByPeriod message from the specified reader or buffer.
+     * @function decode
+     * @memberof SpeedHistogramByPeriod
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {SpeedHistogramByPeriod} SpeedHistogramByPeriod
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    SpeedHistogramByPeriod.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.SpeedHistogramByPeriod();
+        while (reader.pos < end) {
+            let tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1: {
+                    if (!(message.periodOffset && message.periodOffset.length))
+                        message.periodOffset = [];
+                    if ((tag & 7) === 2) {
+                        let end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.periodOffset.push(reader.uint32());
+                    } else
+                        message.periodOffset.push(reader.uint32());
+                    break;
+                }
+            case 2: {
+                    if (!(message.histogram && message.histogram.length))
+                        message.histogram = [];
+                    message.histogram.push($root.SpeedHistogram.decode(reader, reader.uint32()));
+                    break;
+                }
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        return message;
+    };
+
+    /**
+     * Decodes a SpeedHistogramByPeriod message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof SpeedHistogramByPeriod
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {SpeedHistogramByPeriod} SpeedHistogramByPeriod
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    SpeedHistogramByPeriod.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies a SpeedHistogramByPeriod message.
+     * @function verify
+     * @memberof SpeedHistogramByPeriod
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    SpeedHistogramByPeriod.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        if (message.periodOffset != null && message.hasOwnProperty("periodOffset")) {
+            if (!Array.isArray(message.periodOffset))
+                return "periodOffset: array expected";
+            for (let i = 0; i < message.periodOffset.length; ++i)
+                if (!$util.isInteger(message.periodOffset[i]))
+                    return "periodOffset: integer[] expected";
+        }
+        if (message.histogram != null && message.hasOwnProperty("histogram")) {
+            if (!Array.isArray(message.histogram))
+                return "histogram: array expected";
+            for (let i = 0; i < message.histogram.length; ++i) {
+                let error = $root.SpeedHistogram.verify(message.histogram[i]);
+                if (error)
+                    return "histogram." + error;
+            }
+        }
+        return null;
+    };
+
+    /**
+     * Creates a SpeedHistogramByPeriod message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof SpeedHistogramByPeriod
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {SpeedHistogramByPeriod} SpeedHistogramByPeriod
+     */
+    SpeedHistogramByPeriod.fromObject = function fromObject(object) {
+        if (object instanceof $root.SpeedHistogramByPeriod)
+            return object;
+        let message = new $root.SpeedHistogramByPeriod();
+        if (object.periodOffset) {
+            if (!Array.isArray(object.periodOffset))
+                throw TypeError(".SpeedHistogramByPeriod.periodOffset: array expected");
+            message.periodOffset = [];
+            for (let i = 0; i < object.periodOffset.length; ++i)
+                message.periodOffset[i] = object.periodOffset[i] >>> 0;
+        }
+        if (object.histogram) {
+            if (!Array.isArray(object.histogram))
+                throw TypeError(".SpeedHistogramByPeriod.histogram: array expected");
+            message.histogram = [];
+            for (let i = 0; i < object.histogram.length; ++i) {
+                if (typeof object.histogram[i] !== "object")
+                    throw TypeError(".SpeedHistogramByPeriod.histogram: object expected");
+                message.histogram[i] = $root.SpeedHistogram.fromObject(object.histogram[i]);
+            }
+        }
+        return message;
+    };
+
+    /**
+     * Creates a plain object from a SpeedHistogramByPeriod message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof SpeedHistogramByPeriod
+     * @static
+     * @param {SpeedHistogramByPeriod} message SpeedHistogramByPeriod
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    SpeedHistogramByPeriod.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        let object = {};
+        if (options.arrays || options.defaults) {
+            object.periodOffset = [];
+            object.histogram = [];
+        }
+        if (message.periodOffset && message.periodOffset.length) {
+            object.periodOffset = [];
+            for (let j = 0; j < message.periodOffset.length; ++j)
+                object.periodOffset[j] = message.periodOffset[j];
+        }
+        if (message.histogram && message.histogram.length) {
+            object.histogram = [];
+            for (let j = 0; j < message.histogram.length; ++j)
+                object.histogram[j] = $root.SpeedHistogram.toObject(message.histogram[j], options);
+        }
+        return object;
+    };
+
+    /**
+     * Converts this SpeedHistogramByPeriod to JSON.
+     * @function toJSON
+     * @memberof SpeedHistogramByPeriod
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    SpeedHistogramByPeriod.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    /**
+     * Gets the default type url for SpeedHistogramByPeriod
+     * @function getTypeUrl
+     * @memberof SpeedHistogramByPeriod
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    SpeedHistogramByPeriod.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/SpeedHistogramByPeriod";
+    };
+
+    return SpeedHistogramByPeriod;
+})();
+
+export const SpeedSummary = $root.SpeedSummary = (() => {
+
+    /**
+     * Properties of a SpeedSummary.
+     * @exports ISpeedSummary
+     * @interface ISpeedSummary
+     * @property {number|null} [meanSpead] SpeedSummary meanSpead
+     * @property {Array.<number>|null} [percentile] SpeedSummary percentile
+     * @property {Array.<number>|null} [observationCount] SpeedSummary observationCount
+     */
+
+    /**
+     * Constructs a new SpeedSummary.
+     * @exports SpeedSummary
+     * @classdesc Represents a SpeedSummary.
+     * @implements ISpeedSummary
+     * @constructor
+     * @param {ISpeedSummary=} [properties] Properties to set
+     */
+    function SpeedSummary(properties) {
+        this.percentile = [];
+        this.observationCount = [];
+        if (properties)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * SpeedSummary meanSpead.
+     * @member {number} meanSpead
+     * @memberof SpeedSummary
+     * @instance
+     */
+    SpeedSummary.prototype.meanSpead = 0;
+
+    /**
+     * SpeedSummary percentile.
+     * @member {Array.<number>} percentile
+     * @memberof SpeedSummary
+     * @instance
+     */
+    SpeedSummary.prototype.percentile = $util.emptyArray;
+
+    /**
+     * SpeedSummary observationCount.
+     * @member {Array.<number>} observationCount
+     * @memberof SpeedSummary
+     * @instance
+     */
+    SpeedSummary.prototype.observationCount = $util.emptyArray;
+
+    /**
+     * Creates a new SpeedSummary instance using the specified properties.
+     * @function create
+     * @memberof SpeedSummary
+     * @static
+     * @param {ISpeedSummary=} [properties] Properties to set
+     * @returns {SpeedSummary} SpeedSummary instance
+     */
+    SpeedSummary.create = function create(properties) {
+        return new SpeedSummary(properties);
+    };
+
+    /**
+     * Encodes the specified SpeedSummary message. Does not implicitly {@link SpeedSummary.verify|verify} messages.
+     * @function encode
+     * @memberof SpeedSummary
+     * @static
+     * @param {ISpeedSummary} message SpeedSummary message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    SpeedSummary.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        if (message.meanSpead != null && Object.hasOwnProperty.call(message, "meanSpead"))
+            writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.meanSpead);
+        if (message.percentile != null && message.percentile.length) {
+            writer.uint32(/* id 2, wireType 2 =*/18).fork();
+            for (let i = 0; i < message.percentile.length; ++i)
+                writer.uint32(message.percentile[i]);
+            writer.ldelim();
+        }
+        if (message.observationCount != null && message.observationCount.length) {
+            writer.uint32(/* id 3, wireType 2 =*/26).fork();
+            for (let i = 0; i < message.observationCount.length; ++i)
+                writer.uint32(message.observationCount[i]);
+            writer.ldelim();
+        }
+        return writer;
+    };
+
+    /**
+     * Encodes the specified SpeedSummary message, length delimited. Does not implicitly {@link SpeedSummary.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof SpeedSummary
+     * @static
+     * @param {ISpeedSummary} message SpeedSummary message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    SpeedSummary.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes a SpeedSummary message from the specified reader or buffer.
+     * @function decode
+     * @memberof SpeedSummary
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {SpeedSummary} SpeedSummary
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    SpeedSummary.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.SpeedSummary();
+        while (reader.pos < end) {
+            let tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1: {
+                    message.meanSpead = reader.uint32();
+                    break;
+                }
+            case 2: {
+                    if (!(message.percentile && message.percentile.length))
+                        message.percentile = [];
+                    if ((tag & 7) === 2) {
+                        let end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.percentile.push(reader.uint32());
+                    } else
+                        message.percentile.push(reader.uint32());
+                    break;
+                }
+            case 3: {
+                    if (!(message.observationCount && message.observationCount.length))
+                        message.observationCount = [];
+                    if ((tag & 7) === 2) {
+                        let end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.observationCount.push(reader.uint32());
+                    } else
+                        message.observationCount.push(reader.uint32());
+                    break;
+                }
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        return message;
+    };
+
+    /**
+     * Decodes a SpeedSummary message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof SpeedSummary
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {SpeedSummary} SpeedSummary
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    SpeedSummary.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies a SpeedSummary message.
+     * @function verify
+     * @memberof SpeedSummary
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    SpeedSummary.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        if (message.meanSpead != null && message.hasOwnProperty("meanSpead"))
+            if (!$util.isInteger(message.meanSpead))
+                return "meanSpead: integer expected";
+        if (message.percentile != null && message.hasOwnProperty("percentile")) {
+            if (!Array.isArray(message.percentile))
+                return "percentile: array expected";
+            for (let i = 0; i < message.percentile.length; ++i)
+                if (!$util.isInteger(message.percentile[i]))
+                    return "percentile: integer[] expected";
+        }
+        if (message.observationCount != null && message.hasOwnProperty("observationCount")) {
+            if (!Array.isArray(message.observationCount))
+                return "observationCount: array expected";
+            for (let i = 0; i < message.observationCount.length; ++i)
+                if (!$util.isInteger(message.observationCount[i]))
+                    return "observationCount: integer[] expected";
+        }
+        return null;
+    };
+
+    /**
+     * Creates a SpeedSummary message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof SpeedSummary
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {SpeedSummary} SpeedSummary
+     */
+    SpeedSummary.fromObject = function fromObject(object) {
+        if (object instanceof $root.SpeedSummary)
+            return object;
+        let message = new $root.SpeedSummary();
+        if (object.meanSpead != null)
+            message.meanSpead = object.meanSpead >>> 0;
+        if (object.percentile) {
+            if (!Array.isArray(object.percentile))
+                throw TypeError(".SpeedSummary.percentile: array expected");
+            message.percentile = [];
+            for (let i = 0; i < object.percentile.length; ++i)
+                message.percentile[i] = object.percentile[i] >>> 0;
+        }
+        if (object.observationCount) {
+            if (!Array.isArray(object.observationCount))
+                throw TypeError(".SpeedSummary.observationCount: array expected");
+            message.observationCount = [];
+            for (let i = 0; i < object.observationCount.length; ++i)
+                message.observationCount[i] = object.observationCount[i] >>> 0;
+        }
+        return message;
+    };
+
+    /**
+     * Creates a plain object from a SpeedSummary message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof SpeedSummary
+     * @static
+     * @param {SpeedSummary} message SpeedSummary
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    SpeedSummary.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        let object = {};
+        if (options.arrays || options.defaults) {
+            object.percentile = [];
+            object.observationCount = [];
+        }
+        if (options.defaults)
+            object.meanSpead = 0;
+        if (message.meanSpead != null && message.hasOwnProperty("meanSpead"))
+            object.meanSpead = message.meanSpead;
+        if (message.percentile && message.percentile.length) {
+            object.percentile = [];
+            for (let j = 0; j < message.percentile.length; ++j)
+                object.percentile[j] = message.percentile[j];
+        }
+        if (message.observationCount && message.observationCount.length) {
+            object.observationCount = [];
+            for (let j = 0; j < message.observationCount.length; ++j)
+                object.observationCount[j] = message.observationCount[j];
+        }
+        return object;
+    };
+
+    /**
+     * Converts this SpeedSummary to JSON.
+     * @function toJSON
+     * @memberof SpeedSummary
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    SpeedSummary.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    /**
+     * Gets the default type url for SpeedSummary
+     * @function getTypeUrl
+     * @memberof SpeedSummary
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    SpeedSummary.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/SpeedSummary";
+    };
+
+    return SpeedSummary;
+})();
+
+export const SpeedSummaryByPeriod = $root.SpeedSummaryByPeriod = (() => {
+
+    /**
+     * Properties of a SpeedSummaryByPeriod.
+     * @exports ISpeedSummaryByPeriod
+     * @interface ISpeedSummaryByPeriod
+     * @property {Array.<number>|null} [periodOffset] SpeedSummaryByPeriod periodOffset
+     * @property {Array.<ISpeedSummary>|null} [speedSummary] SpeedSummaryByPeriod speedSummary
+     */
+
+    /**
+     * Constructs a new SpeedSummaryByPeriod.
+     * @exports SpeedSummaryByPeriod
+     * @classdesc Represents a SpeedSummaryByPeriod.
+     * @implements ISpeedSummaryByPeriod
+     * @constructor
+     * @param {ISpeedSummaryByPeriod=} [properties] Properties to set
+     */
+    function SpeedSummaryByPeriod(properties) {
+        this.periodOffset = [];
+        this.speedSummary = [];
+        if (properties)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * SpeedSummaryByPeriod periodOffset.
+     * @member {Array.<number>} periodOffset
+     * @memberof SpeedSummaryByPeriod
+     * @instance
+     */
+    SpeedSummaryByPeriod.prototype.periodOffset = $util.emptyArray;
+
+    /**
+     * SpeedSummaryByPeriod speedSummary.
+     * @member {Array.<ISpeedSummary>} speedSummary
+     * @memberof SpeedSummaryByPeriod
+     * @instance
+     */
+    SpeedSummaryByPeriod.prototype.speedSummary = $util.emptyArray;
+
+    /**
+     * Creates a new SpeedSummaryByPeriod instance using the specified properties.
+     * @function create
+     * @memberof SpeedSummaryByPeriod
+     * @static
+     * @param {ISpeedSummaryByPeriod=} [properties] Properties to set
+     * @returns {SpeedSummaryByPeriod} SpeedSummaryByPeriod instance
+     */
+    SpeedSummaryByPeriod.create = function create(properties) {
+        return new SpeedSummaryByPeriod(properties);
+    };
+
+    /**
+     * Encodes the specified SpeedSummaryByPeriod message. Does not implicitly {@link SpeedSummaryByPeriod.verify|verify} messages.
+     * @function encode
+     * @memberof SpeedSummaryByPeriod
+     * @static
+     * @param {ISpeedSummaryByPeriod} message SpeedSummaryByPeriod message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    SpeedSummaryByPeriod.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        if (message.periodOffset != null && message.periodOffset.length) {
+            writer.uint32(/* id 1, wireType 2 =*/10).fork();
+            for (let i = 0; i < message.periodOffset.length; ++i)
+                writer.uint32(message.periodOffset[i]);
+            writer.ldelim();
+        }
+        if (message.speedSummary != null && message.speedSummary.length)
+            for (let i = 0; i < message.speedSummary.length; ++i)
+                $root.SpeedSummary.encode(message.speedSummary[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+        return writer;
+    };
+
+    /**
+     * Encodes the specified SpeedSummaryByPeriod message, length delimited. Does not implicitly {@link SpeedSummaryByPeriod.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof SpeedSummaryByPeriod
+     * @static
+     * @param {ISpeedSummaryByPeriod} message SpeedSummaryByPeriod message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    SpeedSummaryByPeriod.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes a SpeedSummaryByPeriod message from the specified reader or buffer.
+     * @function decode
+     * @memberof SpeedSummaryByPeriod
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {SpeedSummaryByPeriod} SpeedSummaryByPeriod
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    SpeedSummaryByPeriod.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.SpeedSummaryByPeriod();
+        while (reader.pos < end) {
+            let tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1: {
+                    if (!(message.periodOffset && message.periodOffset.length))
+                        message.periodOffset = [];
+                    if ((tag & 7) === 2) {
+                        let end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.periodOffset.push(reader.uint32());
+                    } else
+                        message.periodOffset.push(reader.uint32());
+                    break;
+                }
+            case 3: {
+                    if (!(message.speedSummary && message.speedSummary.length))
+                        message.speedSummary = [];
+                    message.speedSummary.push($root.SpeedSummary.decode(reader, reader.uint32()));
+                    break;
+                }
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        return message;
+    };
+
+    /**
+     * Decodes a SpeedSummaryByPeriod message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof SpeedSummaryByPeriod
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {SpeedSummaryByPeriod} SpeedSummaryByPeriod
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    SpeedSummaryByPeriod.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies a SpeedSummaryByPeriod message.
+     * @function verify
+     * @memberof SpeedSummaryByPeriod
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    SpeedSummaryByPeriod.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        if (message.periodOffset != null && message.hasOwnProperty("periodOffset")) {
+            if (!Array.isArray(message.periodOffset))
+                return "periodOffset: array expected";
+            for (let i = 0; i < message.periodOffset.length; ++i)
+                if (!$util.isInteger(message.periodOffset[i]))
+                    return "periodOffset: integer[] expected";
+        }
+        if (message.speedSummary != null && message.hasOwnProperty("speedSummary")) {
+            if (!Array.isArray(message.speedSummary))
+                return "speedSummary: array expected";
+            for (let i = 0; i < message.speedSummary.length; ++i) {
+                let error = $root.SpeedSummary.verify(message.speedSummary[i]);
+                if (error)
+                    return "speedSummary." + error;
+            }
+        }
+        return null;
+    };
+
+    /**
+     * Creates a SpeedSummaryByPeriod message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof SpeedSummaryByPeriod
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {SpeedSummaryByPeriod} SpeedSummaryByPeriod
+     */
+    SpeedSummaryByPeriod.fromObject = function fromObject(object) {
+        if (object instanceof $root.SpeedSummaryByPeriod)
+            return object;
+        let message = new $root.SpeedSummaryByPeriod();
+        if (object.periodOffset) {
+            if (!Array.isArray(object.periodOffset))
+                throw TypeError(".SpeedSummaryByPeriod.periodOffset: array expected");
+            message.periodOffset = [];
+            for (let i = 0; i < object.periodOffset.length; ++i)
+                message.periodOffset[i] = object.periodOffset[i] >>> 0;
+        }
+        if (object.speedSummary) {
+            if (!Array.isArray(object.speedSummary))
+                throw TypeError(".SpeedSummaryByPeriod.speedSummary: array expected");
+            message.speedSummary = [];
+            for (let i = 0; i < object.speedSummary.length; ++i) {
+                if (typeof object.speedSummary[i] !== "object")
+                    throw TypeError(".SpeedSummaryByPeriod.speedSummary: object expected");
+                message.speedSummary[i] = $root.SpeedSummary.fromObject(object.speedSummary[i]);
+            }
+        }
+        return message;
+    };
+
+    /**
+     * Creates a plain object from a SpeedSummaryByPeriod message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof SpeedSummaryByPeriod
+     * @static
+     * @param {SpeedSummaryByPeriod} message SpeedSummaryByPeriod
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    SpeedSummaryByPeriod.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        let object = {};
+        if (options.arrays || options.defaults) {
+            object.periodOffset = [];
+            object.speedSummary = [];
+        }
+        if (message.periodOffset && message.periodOffset.length) {
+            object.periodOffset = [];
+            for (let j = 0; j < message.periodOffset.length; ++j)
+                object.periodOffset[j] = message.periodOffset[j];
+        }
+        if (message.speedSummary && message.speedSummary.length) {
+            object.speedSummary = [];
+            for (let j = 0; j < message.speedSummary.length; ++j)
+                object.speedSummary[j] = $root.SpeedSummary.toObject(message.speedSummary[j], options);
+        }
+        return object;
+    };
+
+    /**
+     * Converts this SpeedSummaryByPeriod to JSON.
+     * @function toJSON
+     * @memberof SpeedSummaryByPeriod
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    SpeedSummaryByPeriod.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    /**
+     * Gets the default type url for SpeedSummaryByPeriod
+     * @function getTypeUrl
+     * @memberof SpeedSummaryByPeriod
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    SpeedSummaryByPeriod.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/SpeedSummaryByPeriod";
+    };
+
+    return SpeedSummaryByPeriod;
+})();
+
+export const SharedStreetsWeeklySpeeds = $root.SharedStreetsWeeklySpeeds = (() => {
 
     /**
      * Properties of a SharedStreetsWeeklySpeeds.
      * @exports ISharedStreetsWeeklySpeeds
      * @interface ISharedStreetsWeeklySpeeds
      * @property {string|null} [referenceId] SharedStreetsWeeklySpeeds referenceId
-     * @property {number|null} [year] SharedStreetsWeeklySpeeds year
-     * @property {number|null} [month] SharedStreetsWeeklySpeeds month
-     * @property {number|null} [day] SharedStreetsWeeklySpeeds day
      * @property {PeriodSize|null} [periodSize] SharedStreetsWeeklySpeeds periodSize
      * @property {boolean|null} [scaledCounts] SharedStreetsWeeklySpeeds scaledCounts
-     * @property {Array.<number>|null} [periodOffset] SharedStreetsWeeklySpeeds periodOffset
-     * @property {Array.<ISpeedHistogram>|null} [speedsForPeriod] SharedStreetsWeeklySpeeds speedsForPeriod
+     * @property {number|Long|null} [referenceLength] SharedStreetsWeeklySpeeds referenceLength
+     * @property {number|null} [numberOfBins] SharedStreetsWeeklySpeeds numberOfBins
+     * @property {Array.<number>|null} [binPosition] SharedStreetsWeeklySpeeds binPosition
+     * @property {Array.<ISpeedHistogramByPeriod>|null} [speedsByPeriod] SharedStreetsWeeklySpeeds speedsByPeriod
+     * @property {Array.<ISpeedSummaryByPeriod>|null} [speedSummaryByPeriod] SharedStreetsWeeklySpeeds speedSummaryByPeriod
      */
 
     /**
@@ -966,10 +1872,11 @@ $root.SharedStreetsWeeklySpeeds = (function() {
      * @param {ISharedStreetsWeeklySpeeds=} [properties] Properties to set
      */
     function SharedStreetsWeeklySpeeds(properties) {
-        this.periodOffset = [];
-        this.speedsForPeriod = [];
+        this.binPosition = [];
+        this.speedsByPeriod = [];
+        this.speedSummaryByPeriod = [];
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -981,30 +1888,6 @@ $root.SharedStreetsWeeklySpeeds = (function() {
      * @instance
      */
     SharedStreetsWeeklySpeeds.prototype.referenceId = "";
-
-    /**
-     * SharedStreetsWeeklySpeeds year.
-     * @member {number} year
-     * @memberof SharedStreetsWeeklySpeeds
-     * @instance
-     */
-    SharedStreetsWeeklySpeeds.prototype.year = 0;
-
-    /**
-     * SharedStreetsWeeklySpeeds month.
-     * @member {number} month
-     * @memberof SharedStreetsWeeklySpeeds
-     * @instance
-     */
-    SharedStreetsWeeklySpeeds.prototype.month = 0;
-
-    /**
-     * SharedStreetsWeeklySpeeds day.
-     * @member {number} day
-     * @memberof SharedStreetsWeeklySpeeds
-     * @instance
-     */
-    SharedStreetsWeeklySpeeds.prototype.day = 0;
 
     /**
      * SharedStreetsWeeklySpeeds periodSize.
@@ -1023,20 +1906,44 @@ $root.SharedStreetsWeeklySpeeds = (function() {
     SharedStreetsWeeklySpeeds.prototype.scaledCounts = false;
 
     /**
-     * SharedStreetsWeeklySpeeds periodOffset.
-     * @member {Array.<number>} periodOffset
+     * SharedStreetsWeeklySpeeds referenceLength.
+     * @member {number|Long} referenceLength
      * @memberof SharedStreetsWeeklySpeeds
      * @instance
      */
-    SharedStreetsWeeklySpeeds.prototype.periodOffset = $util.emptyArray;
+    SharedStreetsWeeklySpeeds.prototype.referenceLength = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
     /**
-     * SharedStreetsWeeklySpeeds speedsForPeriod.
-     * @member {Array.<ISpeedHistogram>} speedsForPeriod
+     * SharedStreetsWeeklySpeeds numberOfBins.
+     * @member {number} numberOfBins
      * @memberof SharedStreetsWeeklySpeeds
      * @instance
      */
-    SharedStreetsWeeklySpeeds.prototype.speedsForPeriod = $util.emptyArray;
+    SharedStreetsWeeklySpeeds.prototype.numberOfBins = 0;
+
+    /**
+     * SharedStreetsWeeklySpeeds binPosition.
+     * @member {Array.<number>} binPosition
+     * @memberof SharedStreetsWeeklySpeeds
+     * @instance
+     */
+    SharedStreetsWeeklySpeeds.prototype.binPosition = $util.emptyArray;
+
+    /**
+     * SharedStreetsWeeklySpeeds speedsByPeriod.
+     * @member {Array.<ISpeedHistogramByPeriod>} speedsByPeriod
+     * @memberof SharedStreetsWeeklySpeeds
+     * @instance
+     */
+    SharedStreetsWeeklySpeeds.prototype.speedsByPeriod = $util.emptyArray;
+
+    /**
+     * SharedStreetsWeeklySpeeds speedSummaryByPeriod.
+     * @member {Array.<ISpeedSummaryByPeriod>} speedSummaryByPeriod
+     * @memberof SharedStreetsWeeklySpeeds
+     * @instance
+     */
+    SharedStreetsWeeklySpeeds.prototype.speedSummaryByPeriod = $util.emptyArray;
 
     /**
      * Creates a new SharedStreetsWeeklySpeeds instance using the specified properties.
@@ -1062,27 +1969,28 @@ $root.SharedStreetsWeeklySpeeds = (function() {
     SharedStreetsWeeklySpeeds.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.referenceId != null && message.hasOwnProperty("referenceId"))
+        if (message.referenceId != null && Object.hasOwnProperty.call(message, "referenceId"))
             writer.uint32(/* id 1, wireType 2 =*/10).string(message.referenceId);
-        if (message.year != null && message.hasOwnProperty("year"))
-            writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.year);
-        if (message.month != null && message.hasOwnProperty("month"))
-            writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.month);
-        if (message.day != null && message.hasOwnProperty("day"))
-            writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.day);
-        if (message.periodSize != null && message.hasOwnProperty("periodSize"))
-            writer.uint32(/* id 5, wireType 0 =*/40).int32(message.periodSize);
-        if (message.scaledCounts != null && message.hasOwnProperty("scaledCounts"))
-            writer.uint32(/* id 6, wireType 0 =*/48).bool(message.scaledCounts);
-        if (message.periodOffset != null && message.periodOffset.length) {
-            writer.uint32(/* id 7, wireType 2 =*/58).fork();
-            for (var i = 0; i < message.periodOffset.length; ++i)
-                writer.uint32(message.periodOffset[i]);
+        if (message.periodSize != null && Object.hasOwnProperty.call(message, "periodSize"))
+            writer.uint32(/* id 2, wireType 0 =*/16).int32(message.periodSize);
+        if (message.scaledCounts != null && Object.hasOwnProperty.call(message, "scaledCounts"))
+            writer.uint32(/* id 3, wireType 0 =*/24).bool(message.scaledCounts);
+        if (message.referenceLength != null && Object.hasOwnProperty.call(message, "referenceLength"))
+            writer.uint32(/* id 4, wireType 0 =*/32).uint64(message.referenceLength);
+        if (message.numberOfBins != null && Object.hasOwnProperty.call(message, "numberOfBins"))
+            writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.numberOfBins);
+        if (message.binPosition != null && message.binPosition.length) {
+            writer.uint32(/* id 6, wireType 2 =*/50).fork();
+            for (let i = 0; i < message.binPosition.length; ++i)
+                writer.uint32(message.binPosition[i]);
             writer.ldelim();
         }
-        if (message.speedsForPeriod != null && message.speedsForPeriod.length)
-            for (var i = 0; i < message.speedsForPeriod.length; ++i)
-                $root.SpeedHistogram.encode(message.speedsForPeriod[i], writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+        if (message.speedsByPeriod != null && message.speedsByPeriod.length)
+            for (let i = 0; i < message.speedsByPeriod.length; ++i)
+                $root.SpeedHistogramByPeriod.encode(message.speedsByPeriod[i], writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+        if (message.speedSummaryByPeriod != null && message.speedSummaryByPeriod.length)
+            for (let i = 0; i < message.speedSummaryByPeriod.length; ++i)
+                $root.SpeedSummaryByPeriod.encode(message.speedSummaryByPeriod[i], writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
         return writer;
     };
 
@@ -1113,43 +2021,53 @@ $root.SharedStreetsWeeklySpeeds = (function() {
     SharedStreetsWeeklySpeeds.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SharedStreetsWeeklySpeeds();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.SharedStreetsWeeklySpeeds();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.referenceId = reader.string();
-                break;
-            case 2:
-                message.year = reader.uint32();
-                break;
-            case 3:
-                message.month = reader.uint32();
-                break;
-            case 4:
-                message.day = reader.uint32();
-                break;
-            case 5:
-                message.periodSize = reader.int32();
-                break;
-            case 6:
-                message.scaledCounts = reader.bool();
-                break;
-            case 7:
-                if (!(message.periodOffset && message.periodOffset.length))
-                    message.periodOffset = [];
-                if ((tag & 7) === 2) {
-                    var end2 = reader.uint32() + reader.pos;
-                    while (reader.pos < end2)
-                        message.periodOffset.push(reader.uint32());
-                } else
-                    message.periodOffset.push(reader.uint32());
-                break;
-            case 8:
-                if (!(message.speedsForPeriod && message.speedsForPeriod.length))
-                    message.speedsForPeriod = [];
-                message.speedsForPeriod.push($root.SpeedHistogram.decode(reader, reader.uint32()));
-                break;
+            case 1: {
+                    message.referenceId = reader.string();
+                    break;
+                }
+            case 2: {
+                    message.periodSize = reader.int32();
+                    break;
+                }
+            case 3: {
+                    message.scaledCounts = reader.bool();
+                    break;
+                }
+            case 4: {
+                    message.referenceLength = reader.uint64();
+                    break;
+                }
+            case 5: {
+                    message.numberOfBins = reader.uint32();
+                    break;
+                }
+            case 6: {
+                    if (!(message.binPosition && message.binPosition.length))
+                        message.binPosition = [];
+                    if ((tag & 7) === 2) {
+                        let end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.binPosition.push(reader.uint32());
+                    } else
+                        message.binPosition.push(reader.uint32());
+                    break;
+                }
+            case 7: {
+                    if (!(message.speedsByPeriod && message.speedsByPeriod.length))
+                        message.speedsByPeriod = [];
+                    message.speedsByPeriod.push($root.SpeedHistogramByPeriod.decode(reader, reader.uint32()));
+                    break;
+                }
+            case 8: {
+                    if (!(message.speedSummaryByPeriod && message.speedSummaryByPeriod.length))
+                        message.speedSummaryByPeriod = [];
+                    message.speedSummaryByPeriod.push($root.SpeedSummaryByPeriod.decode(reader, reader.uint32()));
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -1188,15 +2106,6 @@ $root.SharedStreetsWeeklySpeeds = (function() {
         if (message.referenceId != null && message.hasOwnProperty("referenceId"))
             if (!$util.isString(message.referenceId))
                 return "referenceId: string expected";
-        if (message.year != null && message.hasOwnProperty("year"))
-            if (!$util.isInteger(message.year))
-                return "year: integer expected";
-        if (message.month != null && message.hasOwnProperty("month"))
-            if (!$util.isInteger(message.month))
-                return "month: integer expected";
-        if (message.day != null && message.hasOwnProperty("day"))
-            if (!$util.isInteger(message.day))
-                return "day: integer expected";
         if (message.periodSize != null && message.hasOwnProperty("periodSize"))
             switch (message.periodSize) {
             default:
@@ -1221,20 +2130,35 @@ $root.SharedStreetsWeeklySpeeds = (function() {
         if (message.scaledCounts != null && message.hasOwnProperty("scaledCounts"))
             if (typeof message.scaledCounts !== "boolean")
                 return "scaledCounts: boolean expected";
-        if (message.periodOffset != null && message.hasOwnProperty("periodOffset")) {
-            if (!Array.isArray(message.periodOffset))
-                return "periodOffset: array expected";
-            for (var i = 0; i < message.periodOffset.length; ++i)
-                if (!$util.isInteger(message.periodOffset[i]))
-                    return "periodOffset: integer[] expected";
+        if (message.referenceLength != null && message.hasOwnProperty("referenceLength"))
+            if (!$util.isInteger(message.referenceLength) && !(message.referenceLength && $util.isInteger(message.referenceLength.low) && $util.isInteger(message.referenceLength.high)))
+                return "referenceLength: integer|Long expected";
+        if (message.numberOfBins != null && message.hasOwnProperty("numberOfBins"))
+            if (!$util.isInteger(message.numberOfBins))
+                return "numberOfBins: integer expected";
+        if (message.binPosition != null && message.hasOwnProperty("binPosition")) {
+            if (!Array.isArray(message.binPosition))
+                return "binPosition: array expected";
+            for (let i = 0; i < message.binPosition.length; ++i)
+                if (!$util.isInteger(message.binPosition[i]))
+                    return "binPosition: integer[] expected";
         }
-        if (message.speedsForPeriod != null && message.hasOwnProperty("speedsForPeriod")) {
-            if (!Array.isArray(message.speedsForPeriod))
-                return "speedsForPeriod: array expected";
-            for (var i = 0; i < message.speedsForPeriod.length; ++i) {
-                var error = $root.SpeedHistogram.verify(message.speedsForPeriod[i]);
+        if (message.speedsByPeriod != null && message.hasOwnProperty("speedsByPeriod")) {
+            if (!Array.isArray(message.speedsByPeriod))
+                return "speedsByPeriod: array expected";
+            for (let i = 0; i < message.speedsByPeriod.length; ++i) {
+                let error = $root.SpeedHistogramByPeriod.verify(message.speedsByPeriod[i]);
                 if (error)
-                    return "speedsForPeriod." + error;
+                    return "speedsByPeriod." + error;
+            }
+        }
+        if (message.speedSummaryByPeriod != null && message.hasOwnProperty("speedSummaryByPeriod")) {
+            if (!Array.isArray(message.speedSummaryByPeriod))
+                return "speedSummaryByPeriod: array expected";
+            for (let i = 0; i < message.speedSummaryByPeriod.length; ++i) {
+                let error = $root.SpeedSummaryByPeriod.verify(message.speedSummaryByPeriod[i]);
+                if (error)
+                    return "speedSummaryByPeriod." + error;
             }
         }
         return null;
@@ -1251,16 +2175,16 @@ $root.SharedStreetsWeeklySpeeds = (function() {
     SharedStreetsWeeklySpeeds.fromObject = function fromObject(object) {
         if (object instanceof $root.SharedStreetsWeeklySpeeds)
             return object;
-        var message = new $root.SharedStreetsWeeklySpeeds();
+        let message = new $root.SharedStreetsWeeklySpeeds();
         if (object.referenceId != null)
             message.referenceId = String(object.referenceId);
-        if (object.year != null)
-            message.year = object.year >>> 0;
-        if (object.month != null)
-            message.month = object.month >>> 0;
-        if (object.day != null)
-            message.day = object.day >>> 0;
         switch (object.periodSize) {
+        default:
+            if (typeof object.periodSize === "number") {
+                message.periodSize = object.periodSize;
+                break;
+            }
+            break;
         case "OneSecond":
         case 0:
             message.periodSize = 0;
@@ -1324,21 +2248,42 @@ $root.SharedStreetsWeeklySpeeds = (function() {
         }
         if (object.scaledCounts != null)
             message.scaledCounts = Boolean(object.scaledCounts);
-        if (object.periodOffset) {
-            if (!Array.isArray(object.periodOffset))
-                throw TypeError(".SharedStreetsWeeklySpeeds.periodOffset: array expected");
-            message.periodOffset = [];
-            for (var i = 0; i < object.periodOffset.length; ++i)
-                message.periodOffset[i] = object.periodOffset[i] >>> 0;
+        if (object.referenceLength != null)
+            if ($util.Long)
+                (message.referenceLength = $util.Long.fromValue(object.referenceLength)).unsigned = true;
+            else if (typeof object.referenceLength === "string")
+                message.referenceLength = parseInt(object.referenceLength, 10);
+            else if (typeof object.referenceLength === "number")
+                message.referenceLength = object.referenceLength;
+            else if (typeof object.referenceLength === "object")
+                message.referenceLength = new $util.LongBits(object.referenceLength.low >>> 0, object.referenceLength.high >>> 0).toNumber(true);
+        if (object.numberOfBins != null)
+            message.numberOfBins = object.numberOfBins >>> 0;
+        if (object.binPosition) {
+            if (!Array.isArray(object.binPosition))
+                throw TypeError(".SharedStreetsWeeklySpeeds.binPosition: array expected");
+            message.binPosition = [];
+            for (let i = 0; i < object.binPosition.length; ++i)
+                message.binPosition[i] = object.binPosition[i] >>> 0;
         }
-        if (object.speedsForPeriod) {
-            if (!Array.isArray(object.speedsForPeriod))
-                throw TypeError(".SharedStreetsWeeklySpeeds.speedsForPeriod: array expected");
-            message.speedsForPeriod = [];
-            for (var i = 0; i < object.speedsForPeriod.length; ++i) {
-                if (typeof object.speedsForPeriod[i] !== "object")
-                    throw TypeError(".SharedStreetsWeeklySpeeds.speedsForPeriod: object expected");
-                message.speedsForPeriod[i] = $root.SpeedHistogram.fromObject(object.speedsForPeriod[i]);
+        if (object.speedsByPeriod) {
+            if (!Array.isArray(object.speedsByPeriod))
+                throw TypeError(".SharedStreetsWeeklySpeeds.speedsByPeriod: array expected");
+            message.speedsByPeriod = [];
+            for (let i = 0; i < object.speedsByPeriod.length; ++i) {
+                if (typeof object.speedsByPeriod[i] !== "object")
+                    throw TypeError(".SharedStreetsWeeklySpeeds.speedsByPeriod: object expected");
+                message.speedsByPeriod[i] = $root.SpeedHistogramByPeriod.fromObject(object.speedsByPeriod[i]);
+            }
+        }
+        if (object.speedSummaryByPeriod) {
+            if (!Array.isArray(object.speedSummaryByPeriod))
+                throw TypeError(".SharedStreetsWeeklySpeeds.speedSummaryByPeriod: array expected");
+            message.speedSummaryByPeriod = [];
+            for (let i = 0; i < object.speedSummaryByPeriod.length; ++i) {
+                if (typeof object.speedSummaryByPeriod[i] !== "object")
+                    throw TypeError(".SharedStreetsWeeklySpeeds.speedSummaryByPeriod: object expected");
+                message.speedSummaryByPeriod[i] = $root.SpeedSummaryByPeriod.fromObject(object.speedSummaryByPeriod[i]);
             }
         }
         return message;
@@ -1356,40 +2301,50 @@ $root.SharedStreetsWeeklySpeeds = (function() {
     SharedStreetsWeeklySpeeds.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.arrays || options.defaults) {
-            object.periodOffset = [];
-            object.speedsForPeriod = [];
+            object.binPosition = [];
+            object.speedsByPeriod = [];
+            object.speedSummaryByPeriod = [];
         }
         if (options.defaults) {
             object.referenceId = "";
-            object.year = 0;
-            object.month = 0;
-            object.day = 0;
             object.periodSize = options.enums === String ? "OneSecond" : 0;
             object.scaledCounts = false;
+            if ($util.Long) {
+                let long = new $util.Long(0, 0, true);
+                object.referenceLength = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+            } else
+                object.referenceLength = options.longs === String ? "0" : 0;
+            object.numberOfBins = 0;
         }
         if (message.referenceId != null && message.hasOwnProperty("referenceId"))
             object.referenceId = message.referenceId;
-        if (message.year != null && message.hasOwnProperty("year"))
-            object.year = message.year;
-        if (message.month != null && message.hasOwnProperty("month"))
-            object.month = message.month;
-        if (message.day != null && message.hasOwnProperty("day"))
-            object.day = message.day;
         if (message.periodSize != null && message.hasOwnProperty("periodSize"))
-            object.periodSize = options.enums === String ? $root.PeriodSize[message.periodSize] : message.periodSize;
+            object.periodSize = options.enums === String ? $root.PeriodSize[message.periodSize] === undefined ? message.periodSize : $root.PeriodSize[message.periodSize] : message.periodSize;
         if (message.scaledCounts != null && message.hasOwnProperty("scaledCounts"))
             object.scaledCounts = message.scaledCounts;
-        if (message.periodOffset && message.periodOffset.length) {
-            object.periodOffset = [];
-            for (var j = 0; j < message.periodOffset.length; ++j)
-                object.periodOffset[j] = message.periodOffset[j];
+        if (message.referenceLength != null && message.hasOwnProperty("referenceLength"))
+            if (typeof message.referenceLength === "number")
+                object.referenceLength = options.longs === String ? String(message.referenceLength) : message.referenceLength;
+            else
+                object.referenceLength = options.longs === String ? $util.Long.prototype.toString.call(message.referenceLength) : options.longs === Number ? new $util.LongBits(message.referenceLength.low >>> 0, message.referenceLength.high >>> 0).toNumber(true) : message.referenceLength;
+        if (message.numberOfBins != null && message.hasOwnProperty("numberOfBins"))
+            object.numberOfBins = message.numberOfBins;
+        if (message.binPosition && message.binPosition.length) {
+            object.binPosition = [];
+            for (let j = 0; j < message.binPosition.length; ++j)
+                object.binPosition[j] = message.binPosition[j];
         }
-        if (message.speedsForPeriod && message.speedsForPeriod.length) {
-            object.speedsForPeriod = [];
-            for (var j = 0; j < message.speedsForPeriod.length; ++j)
-                object.speedsForPeriod[j] = $root.SpeedHistogram.toObject(message.speedsForPeriod[j], options);
+        if (message.speedsByPeriod && message.speedsByPeriod.length) {
+            object.speedsByPeriod = [];
+            for (let j = 0; j < message.speedsByPeriod.length; ++j)
+                object.speedsByPeriod[j] = $root.SpeedHistogramByPeriod.toObject(message.speedsByPeriod[j], options);
+        }
+        if (message.speedSummaryByPeriod && message.speedSummaryByPeriod.length) {
+            object.speedSummaryByPeriod = [];
+            for (let j = 0; j < message.speedSummaryByPeriod.length; ++j)
+                object.speedSummaryByPeriod[j] = $root.SpeedSummaryByPeriod.toObject(message.speedSummaryByPeriod[j], options);
         }
         return object;
     };
@@ -1405,5 +2360,22 @@ $root.SharedStreetsWeeklySpeeds = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for SharedStreetsWeeklySpeeds
+     * @function getTypeUrl
+     * @memberof SharedStreetsWeeklySpeeds
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    SharedStreetsWeeklySpeeds.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/SharedStreetsWeeklySpeeds";
+    };
+
     return SharedStreetsWeeklySpeeds;
 })();
+
+export { $root as default };

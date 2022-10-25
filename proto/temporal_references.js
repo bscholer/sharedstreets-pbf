@@ -1,18 +1,16 @@
-/*eslint-disable block-scoped-var, no-redeclare, no-control-regex, no-prototype-builtins*/
-"use strict";
-
-import $protobuf from "protobufjs";
+/*eslint-disable block-scoped-var, id-length, no-control-regex, no-magic-numbers, no-prototype-builtins, no-redeclare, no-shadow, no-var, sort-vars*/
+import * as $protobuf from "protobufjs/minimal";
 
 // Common aliases
-var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
+const $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
 
 // Exported root namespace
-export var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
+const $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
 /**
  * PeriodSize enum.
  * @exports PeriodSize
- * @enum {string}
+ * @enum {number}
  * @property {number} OneSecond=0 OneSecond value
  * @property {number} FiveSeconds=1 FiveSeconds value
  * @property {number} TenSeconds=2 TenSeconds value
@@ -29,8 +27,8 @@ export var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {
  * @property {number} OneMonth=13 OneMonth value
  * @property {number} OneYear=14 OneYear value
  */
-$root.PeriodSize = (function() {
-    var valuesById = {}, values = Object.create(valuesById);
+export const PeriodSize = $root.PeriodSize = (() => {
+    const valuesById = {}, values = Object.create(valuesById);
     values[valuesById[0] = "OneSecond"] = 0;
     values[valuesById[1] = "FiveSeconds"] = 1;
     values[valuesById[2] = "TenSeconds"] = 2;
@@ -49,7 +47,7 @@ $root.PeriodSize = (function() {
     return values;
 })();
 
-$root.TemporalPeriod = (function() {
+export const TemporalPeriod = $root.TemporalPeriod = (() => {
 
     /**
      * Properties of a TemporalPeriod.
@@ -69,7 +67,7 @@ $root.TemporalPeriod = (function() {
      */
     function TemporalPeriod(properties) {
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -114,9 +112,9 @@ $root.TemporalPeriod = (function() {
     TemporalPeriod.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.periodSize != null && message.hasOwnProperty("periodSize"))
+        if (message.periodSize != null && Object.hasOwnProperty.call(message, "periodSize"))
             writer.uint32(/* id 1, wireType 0 =*/8).int32(message.periodSize);
-        if (message.periodOffset != null && message.hasOwnProperty("periodOffset"))
+        if (message.periodOffset != null && Object.hasOwnProperty.call(message, "periodOffset"))
             writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.periodOffset);
         return writer;
     };
@@ -148,16 +146,18 @@ $root.TemporalPeriod = (function() {
     TemporalPeriod.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.TemporalPeriod();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.TemporalPeriod();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.periodSize = reader.int32();
-                break;
-            case 2:
-                message.periodOffset = reader.uint64();
-                break;
+            case 1: {
+                    message.periodSize = reader.int32();
+                    break;
+                }
+            case 2: {
+                    message.periodOffset = reader.uint64();
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -231,8 +231,14 @@ $root.TemporalPeriod = (function() {
     TemporalPeriod.fromObject = function fromObject(object) {
         if (object instanceof $root.TemporalPeriod)
             return object;
-        var message = new $root.TemporalPeriod();
+        let message = new $root.TemporalPeriod();
         switch (object.periodSize) {
+        default:
+            if (typeof object.periodSize === "number") {
+                message.periodSize = object.periodSize;
+                break;
+            }
+            break;
         case "OneSecond":
         case 0:
             message.periodSize = 0;
@@ -318,17 +324,17 @@ $root.TemporalPeriod = (function() {
     TemporalPeriod.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.defaults) {
             object.periodSize = options.enums === String ? "OneSecond" : 0;
             if ($util.Long) {
-                var long = new $util.Long(0, 0, true);
+                let long = new $util.Long(0, 0, true);
                 object.periodOffset = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
             } else
                 object.periodOffset = options.longs === String ? "0" : 0;
         }
         if (message.periodSize != null && message.hasOwnProperty("periodSize"))
-            object.periodSize = options.enums === String ? $root.PeriodSize[message.periodSize] : message.periodSize;
+            object.periodSize = options.enums === String ? $root.PeriodSize[message.periodSize] === undefined ? message.periodSize : $root.PeriodSize[message.periodSize] : message.periodSize;
         if (message.periodOffset != null && message.hasOwnProperty("periodOffset"))
             if (typeof message.periodOffset === "number")
                 object.periodOffset = options.longs === String ? String(message.periodOffset) : message.periodOffset;
@@ -348,10 +354,25 @@ $root.TemporalPeriod = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for TemporalPeriod
+     * @function getTypeUrl
+     * @memberof TemporalPeriod
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    TemporalPeriod.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/TemporalPeriod";
+    };
+
     return TemporalPeriod;
 })();
 
-$root.WeeklyCycle = (function() {
+export const WeeklyCycle = $root.WeeklyCycle = (() => {
 
     /**
      * Properties of a WeeklyCycle.
@@ -373,7 +394,7 @@ $root.WeeklyCycle = (function() {
      */
     function WeeklyCycle(properties) {
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -434,13 +455,13 @@ $root.WeeklyCycle = (function() {
     WeeklyCycle.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.year != null && message.hasOwnProperty("year"))
+        if (message.year != null && Object.hasOwnProperty.call(message, "year"))
             writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.year);
-        if (message.month != null && message.hasOwnProperty("month"))
+        if (message.month != null && Object.hasOwnProperty.call(message, "month"))
             writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.month);
-        if (message.day != null && message.hasOwnProperty("day"))
+        if (message.day != null && Object.hasOwnProperty.call(message, "day"))
             writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.day);
-        if (message.periodSize != null && message.hasOwnProperty("periodSize"))
+        if (message.periodSize != null && Object.hasOwnProperty.call(message, "periodSize"))
             writer.uint32(/* id 4, wireType 0 =*/32).int32(message.periodSize);
         return writer;
     };
@@ -472,22 +493,26 @@ $root.WeeklyCycle = (function() {
     WeeklyCycle.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.WeeklyCycle();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.WeeklyCycle();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.year = reader.uint32();
-                break;
-            case 2:
-                message.month = reader.uint32();
-                break;
-            case 3:
-                message.day = reader.uint32();
-                break;
-            case 4:
-                message.periodSize = reader.int32();
-                break;
+            case 1: {
+                    message.year = reader.uint32();
+                    break;
+                }
+            case 2: {
+                    message.month = reader.uint32();
+                    break;
+                }
+            case 3: {
+                    message.day = reader.uint32();
+                    break;
+                }
+            case 4: {
+                    message.periodSize = reader.int32();
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -567,7 +592,7 @@ $root.WeeklyCycle = (function() {
     WeeklyCycle.fromObject = function fromObject(object) {
         if (object instanceof $root.WeeklyCycle)
             return object;
-        var message = new $root.WeeklyCycle();
+        let message = new $root.WeeklyCycle();
         if (object.year != null)
             message.year = object.year >>> 0;
         if (object.month != null)
@@ -575,6 +600,12 @@ $root.WeeklyCycle = (function() {
         if (object.day != null)
             message.day = object.day >>> 0;
         switch (object.periodSize) {
+        default:
+            if (typeof object.periodSize === "number") {
+                message.periodSize = object.periodSize;
+                break;
+            }
+            break;
         case "OneSecond":
         case 0:
             message.periodSize = 0;
@@ -651,7 +682,7 @@ $root.WeeklyCycle = (function() {
     WeeklyCycle.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.defaults) {
             object.year = 0;
             object.month = 0;
@@ -665,7 +696,7 @@ $root.WeeklyCycle = (function() {
         if (message.day != null && message.hasOwnProperty("day"))
             object.day = message.day;
         if (message.periodSize != null && message.hasOwnProperty("periodSize"))
-            object.periodSize = options.enums === String ? $root.PeriodSize[message.periodSize] : message.periodSize;
+            object.periodSize = options.enums === String ? $root.PeriodSize[message.periodSize] === undefined ? message.periodSize : $root.PeriodSize[message.periodSize] : message.periodSize;
         return object;
     };
 
@@ -680,5 +711,22 @@ $root.WeeklyCycle = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for WeeklyCycle
+     * @function getTypeUrl
+     * @memberof WeeklyCycle
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    WeeklyCycle.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/WeeklyCycle";
+    };
+
     return WeeklyCycle;
 })();
+
+export { $root as default };

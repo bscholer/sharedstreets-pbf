@@ -1,15 +1,13 @@
-/*eslint-disable block-scoped-var, no-redeclare, no-control-regex, no-prototype-builtins*/
-"use strict";
-
-import $protobuf from "protobufjs";
+/*eslint-disable block-scoped-var, id-length, no-control-regex, no-magic-numbers, no-prototype-builtins, no-redeclare, no-shadow, no-var, sort-vars*/
+import * as $protobuf from "protobufjs/minimal";
 
 // Common aliases
-var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
+const $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
 
 // Exported root namespace
-export var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
+const $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
-$root.Delimiter = (function() {
+export const Delimiter = $root.Delimiter = (() => {
 
     /**
      * Properties of a Delimiter.
@@ -28,7 +26,7 @@ $root.Delimiter = (function() {
      */
     function Delimiter(properties) {
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -65,7 +63,7 @@ $root.Delimiter = (function() {
     Delimiter.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.length != null && message.hasOwnProperty("length"))
+        if (message.length != null && Object.hasOwnProperty.call(message, "length"))
             writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.length);
         return writer;
     };
@@ -97,13 +95,14 @@ $root.Delimiter = (function() {
     Delimiter.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.Delimiter();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.Delimiter();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.length = reader.uint32();
-                break;
+            case 1: {
+                    message.length = reader.uint32();
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -156,7 +155,7 @@ $root.Delimiter = (function() {
     Delimiter.fromObject = function fromObject(object) {
         if (object instanceof $root.Delimiter)
             return object;
-        var message = new $root.Delimiter();
+        let message = new $root.Delimiter();
         if (object.length != null)
             message.length = object.length >>> 0;
         return message;
@@ -174,7 +173,7 @@ $root.Delimiter = (function() {
     Delimiter.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.defaults)
             object.length = 0;
         if (message.length != null && message.hasOwnProperty("length"))
@@ -193,10 +192,25 @@ $root.Delimiter = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for Delimiter
+     * @function getTypeUrl
+     * @memberof Delimiter
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    Delimiter.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/Delimiter";
+    };
+
     return Delimiter;
 })();
 
-$root.GISSectionMetadata = (function() {
+export const GISSectionMetadata = $root.GISSectionMetadata = (() => {
 
     /**
      * Properties of a GISSectionMetadata.
@@ -216,7 +230,7 @@ $root.GISSectionMetadata = (function() {
      */
     function GISSectionMetadata(properties) {
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -261,9 +275,9 @@ $root.GISSectionMetadata = (function() {
     GISSectionMetadata.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.sectionId != null && message.hasOwnProperty("sectionId"))
+        if (message.sectionId != null && Object.hasOwnProperty.call(message, "sectionId"))
             writer.uint32(/* id 1, wireType 2 =*/10).string(message.sectionId);
-        if (message.sectionProperties != null && message.hasOwnProperty("sectionProperties"))
+        if (message.sectionProperties != null && Object.hasOwnProperty.call(message, "sectionProperties"))
             writer.uint32(/* id 2, wireType 2 =*/18).string(message.sectionProperties);
         return writer;
     };
@@ -295,16 +309,18 @@ $root.GISSectionMetadata = (function() {
     GISSectionMetadata.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.GISSectionMetadata();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.GISSectionMetadata();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.sectionId = reader.string();
-                break;
-            case 2:
-                message.sectionProperties = reader.string();
-                break;
+            case 1: {
+                    message.sectionId = reader.string();
+                    break;
+                }
+            case 2: {
+                    message.sectionProperties = reader.string();
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -360,7 +376,7 @@ $root.GISSectionMetadata = (function() {
     GISSectionMetadata.fromObject = function fromObject(object) {
         if (object instanceof $root.GISSectionMetadata)
             return object;
-        var message = new $root.GISSectionMetadata();
+        let message = new $root.GISSectionMetadata();
         if (object.sectionId != null)
             message.sectionId = String(object.sectionId);
         if (object.sectionProperties != null)
@@ -380,7 +396,7 @@ $root.GISSectionMetadata = (function() {
     GISSectionMetadata.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.defaults) {
             object.sectionId = "";
             object.sectionProperties = "";
@@ -403,10 +419,25 @@ $root.GISSectionMetadata = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for GISSectionMetadata
+     * @function getTypeUrl
+     * @memberof GISSectionMetadata
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    GISSectionMetadata.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/GISSectionMetadata";
+    };
+
     return GISSectionMetadata;
 })();
 
-$root.GISMetadata = (function() {
+export const GISMetadata = $root.GISMetadata = (() => {
 
     /**
      * Properties of a GISMetadata.
@@ -427,7 +458,7 @@ $root.GISMetadata = (function() {
     function GISMetadata(properties) {
         this.sections = [];
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -472,10 +503,10 @@ $root.GISMetadata = (function() {
     GISMetadata.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.source != null && message.hasOwnProperty("source"))
+        if (message.source != null && Object.hasOwnProperty.call(message, "source"))
             writer.uint32(/* id 1, wireType 2 =*/10).string(message.source);
         if (message.sections != null && message.sections.length)
-            for (var i = 0; i < message.sections.length; ++i)
+            for (let i = 0; i < message.sections.length; ++i)
                 $root.GISSectionMetadata.encode(message.sections[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
         return writer;
     };
@@ -507,18 +538,20 @@ $root.GISMetadata = (function() {
     GISMetadata.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.GISMetadata();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.GISMetadata();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.source = reader.string();
-                break;
-            case 2:
-                if (!(message.sections && message.sections.length))
-                    message.sections = [];
-                message.sections.push($root.GISSectionMetadata.decode(reader, reader.uint32()));
-                break;
+            case 1: {
+                    message.source = reader.string();
+                    break;
+                }
+            case 2: {
+                    if (!(message.sections && message.sections.length))
+                        message.sections = [];
+                    message.sections.push($root.GISSectionMetadata.decode(reader, reader.uint32()));
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -560,8 +593,8 @@ $root.GISMetadata = (function() {
         if (message.sections != null && message.hasOwnProperty("sections")) {
             if (!Array.isArray(message.sections))
                 return "sections: array expected";
-            for (var i = 0; i < message.sections.length; ++i) {
-                var error = $root.GISSectionMetadata.verify(message.sections[i]);
+            for (let i = 0; i < message.sections.length; ++i) {
+                let error = $root.GISSectionMetadata.verify(message.sections[i]);
                 if (error)
                     return "sections." + error;
             }
@@ -580,14 +613,14 @@ $root.GISMetadata = (function() {
     GISMetadata.fromObject = function fromObject(object) {
         if (object instanceof $root.GISMetadata)
             return object;
-        var message = new $root.GISMetadata();
+        let message = new $root.GISMetadata();
         if (object.source != null)
             message.source = String(object.source);
         if (object.sections) {
             if (!Array.isArray(object.sections))
                 throw TypeError(".GISMetadata.sections: array expected");
             message.sections = [];
-            for (var i = 0; i < object.sections.length; ++i) {
+            for (let i = 0; i < object.sections.length; ++i) {
                 if (typeof object.sections[i] !== "object")
                     throw TypeError(".GISMetadata.sections: object expected");
                 message.sections[i] = $root.GISSectionMetadata.fromObject(object.sections[i]);
@@ -608,7 +641,7 @@ $root.GISMetadata = (function() {
     GISMetadata.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.arrays || options.defaults)
             object.sections = [];
         if (options.defaults)
@@ -617,7 +650,7 @@ $root.GISMetadata = (function() {
             object.source = message.source;
         if (message.sections && message.sections.length) {
             object.sections = [];
-            for (var j = 0; j < message.sections.length; ++j)
+            for (let j = 0; j < message.sections.length; ++j)
                 object.sections[j] = $root.GISSectionMetadata.toObject(message.sections[j], options);
         }
         return object;
@@ -634,13 +667,28 @@ $root.GISMetadata = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for GISMetadata
+     * @function getTypeUrl
+     * @memberof GISMetadata
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    GISMetadata.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/GISMetadata";
+    };
+
     return GISMetadata;
 })();
 
 /**
  * RoadClass enum.
  * @exports RoadClass
- * @enum {string}
+ * @enum {number}
  * @property {number} Motorway=0 Motorway value
  * @property {number} Trunk=1 Trunk value
  * @property {number} Primary=2 Primary value
@@ -651,8 +699,8 @@ $root.GISMetadata = (function() {
  * @property {number} Service=7 Service value
  * @property {number} Other=8 Other value
  */
-$root.RoadClass = (function() {
-    var valuesById = {}, values = Object.create(valuesById);
+export const RoadClass = $root.RoadClass = (() => {
+    const valuesById = {}, values = Object.create(valuesById);
     values[valuesById[0] = "Motorway"] = 0;
     values[valuesById[1] = "Trunk"] = 1;
     values[valuesById[2] = "Primary"] = 2;
@@ -665,7 +713,7 @@ $root.RoadClass = (function() {
     return values;
 })();
 
-$root.WaySection = (function() {
+export const WaySection = $root.WaySection = (() => {
 
     /**
      * Properties of a WaySection.
@@ -691,7 +739,7 @@ $root.WaySection = (function() {
     function WaySection(properties) {
         this.nodeIds = [];
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -776,23 +824,23 @@ $root.WaySection = (function() {
     WaySection.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.wayId != null && message.hasOwnProperty("wayId"))
+        if (message.wayId != null && Object.hasOwnProperty.call(message, "wayId"))
             writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.wayId);
-        if (message.roadClass != null && message.hasOwnProperty("roadClass"))
+        if (message.roadClass != null && Object.hasOwnProperty.call(message, "roadClass"))
             writer.uint32(/* id 2, wireType 0 =*/16).int32(message.roadClass);
-        if (message.oneWay != null && message.hasOwnProperty("oneWay"))
+        if (message.oneWay != null && Object.hasOwnProperty.call(message, "oneWay"))
             writer.uint32(/* id 3, wireType 0 =*/24).bool(message.oneWay);
-        if (message.roundabout != null && message.hasOwnProperty("roundabout"))
+        if (message.roundabout != null && Object.hasOwnProperty.call(message, "roundabout"))
             writer.uint32(/* id 4, wireType 0 =*/32).bool(message.roundabout);
-        if (message.link != null && message.hasOwnProperty("link"))
+        if (message.link != null && Object.hasOwnProperty.call(message, "link"))
             writer.uint32(/* id 5, wireType 0 =*/40).bool(message.link);
         if (message.nodeIds != null && message.nodeIds.length) {
             writer.uint32(/* id 6, wireType 2 =*/50).fork();
-            for (var i = 0; i < message.nodeIds.length; ++i)
+            for (let i = 0; i < message.nodeIds.length; ++i)
                 writer.uint64(message.nodeIds[i]);
             writer.ldelim();
         }
-        if (message.name != null && message.hasOwnProperty("name"))
+        if (message.name != null && Object.hasOwnProperty.call(message, "name"))
             writer.uint32(/* id 7, wireType 2 =*/58).string(message.name);
         return writer;
     };
@@ -824,38 +872,45 @@ $root.WaySection = (function() {
     WaySection.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.WaySection();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.WaySection();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.wayId = reader.uint64();
-                break;
-            case 2:
-                message.roadClass = reader.int32();
-                break;
-            case 3:
-                message.oneWay = reader.bool();
-                break;
-            case 4:
-                message.roundabout = reader.bool();
-                break;
-            case 5:
-                message.link = reader.bool();
-                break;
-            case 6:
-                if (!(message.nodeIds && message.nodeIds.length))
-                    message.nodeIds = [];
-                if ((tag & 7) === 2) {
-                    var end2 = reader.uint32() + reader.pos;
-                    while (reader.pos < end2)
+            case 1: {
+                    message.wayId = reader.uint64();
+                    break;
+                }
+            case 2: {
+                    message.roadClass = reader.int32();
+                    break;
+                }
+            case 3: {
+                    message.oneWay = reader.bool();
+                    break;
+                }
+            case 4: {
+                    message.roundabout = reader.bool();
+                    break;
+                }
+            case 5: {
+                    message.link = reader.bool();
+                    break;
+                }
+            case 6: {
+                    if (!(message.nodeIds && message.nodeIds.length))
+                        message.nodeIds = [];
+                    if ((tag & 7) === 2) {
+                        let end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.nodeIds.push(reader.uint64());
+                    } else
                         message.nodeIds.push(reader.uint64());
-                } else
-                    message.nodeIds.push(reader.uint64());
-                break;
-            case 7:
-                message.name = reader.string();
-                break;
+                    break;
+                }
+            case 7: {
+                    message.name = reader.string();
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -921,7 +976,7 @@ $root.WaySection = (function() {
         if (message.nodeIds != null && message.hasOwnProperty("nodeIds")) {
             if (!Array.isArray(message.nodeIds))
                 return "nodeIds: array expected";
-            for (var i = 0; i < message.nodeIds.length; ++i)
+            for (let i = 0; i < message.nodeIds.length; ++i)
                 if (!$util.isInteger(message.nodeIds[i]) && !(message.nodeIds[i] && $util.isInteger(message.nodeIds[i].low) && $util.isInteger(message.nodeIds[i].high)))
                     return "nodeIds: integer|Long[] expected";
         }
@@ -942,7 +997,7 @@ $root.WaySection = (function() {
     WaySection.fromObject = function fromObject(object) {
         if (object instanceof $root.WaySection)
             return object;
-        var message = new $root.WaySection();
+        let message = new $root.WaySection();
         if (object.wayId != null)
             if ($util.Long)
                 (message.wayId = $util.Long.fromValue(object.wayId)).unsigned = true;
@@ -953,6 +1008,12 @@ $root.WaySection = (function() {
             else if (typeof object.wayId === "object")
                 message.wayId = new $util.LongBits(object.wayId.low >>> 0, object.wayId.high >>> 0).toNumber(true);
         switch (object.roadClass) {
+        default:
+            if (typeof object.roadClass === "number") {
+                message.roadClass = object.roadClass;
+                break;
+            }
+            break;
         case "Motorway":
         case 0:
             message.roadClass = 0;
@@ -1000,7 +1061,7 @@ $root.WaySection = (function() {
             if (!Array.isArray(object.nodeIds))
                 throw TypeError(".WaySection.nodeIds: array expected");
             message.nodeIds = [];
-            for (var i = 0; i < object.nodeIds.length; ++i)
+            for (let i = 0; i < object.nodeIds.length; ++i)
                 if ($util.Long)
                     (message.nodeIds[i] = $util.Long.fromValue(object.nodeIds[i])).unsigned = true;
                 else if (typeof object.nodeIds[i] === "string")
@@ -1027,12 +1088,12 @@ $root.WaySection = (function() {
     WaySection.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.arrays || options.defaults)
             object.nodeIds = [];
         if (options.defaults) {
             if ($util.Long) {
-                var long = new $util.Long(0, 0, true);
+                let long = new $util.Long(0, 0, true);
                 object.wayId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
             } else
                 object.wayId = options.longs === String ? "0" : 0;
@@ -1048,7 +1109,7 @@ $root.WaySection = (function() {
             else
                 object.wayId = options.longs === String ? $util.Long.prototype.toString.call(message.wayId) : options.longs === Number ? new $util.LongBits(message.wayId.low >>> 0, message.wayId.high >>> 0).toNumber(true) : message.wayId;
         if (message.roadClass != null && message.hasOwnProperty("roadClass"))
-            object.roadClass = options.enums === String ? $root.RoadClass[message.roadClass] : message.roadClass;
+            object.roadClass = options.enums === String ? $root.RoadClass[message.roadClass] === undefined ? message.roadClass : $root.RoadClass[message.roadClass] : message.roadClass;
         if (message.oneWay != null && message.hasOwnProperty("oneWay"))
             object.oneWay = message.oneWay;
         if (message.roundabout != null && message.hasOwnProperty("roundabout"))
@@ -1057,7 +1118,7 @@ $root.WaySection = (function() {
             object.link = message.link;
         if (message.nodeIds && message.nodeIds.length) {
             object.nodeIds = [];
-            for (var j = 0; j < message.nodeIds.length; ++j)
+            for (let j = 0; j < message.nodeIds.length; ++j)
                 if (typeof message.nodeIds[j] === "number")
                     object.nodeIds[j] = options.longs === String ? String(message.nodeIds[j]) : message.nodeIds[j];
                 else
@@ -1079,10 +1140,25 @@ $root.WaySection = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for WaySection
+     * @function getTypeUrl
+     * @memberof WaySection
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    WaySection.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/WaySection";
+    };
+
     return WaySection;
 })();
 
-$root.OSMMetadata = (function() {
+export const OSMMetadata = $root.OSMMetadata = (() => {
 
     /**
      * Properties of a OSMMetadata.
@@ -1103,7 +1179,7 @@ $root.OSMMetadata = (function() {
     function OSMMetadata(properties) {
         this.waySections = [];
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -1149,9 +1225,9 @@ $root.OSMMetadata = (function() {
         if (!writer)
             writer = $Writer.create();
         if (message.waySections != null && message.waySections.length)
-            for (var i = 0; i < message.waySections.length; ++i)
+            for (let i = 0; i < message.waySections.length; ++i)
                 $root.WaySection.encode(message.waySections[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-        if (message.name != null && message.hasOwnProperty("name"))
+        if (message.name != null && Object.hasOwnProperty.call(message, "name"))
             writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
         return writer;
     };
@@ -1183,18 +1259,20 @@ $root.OSMMetadata = (function() {
     OSMMetadata.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.OSMMetadata();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.OSMMetadata();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                if (!(message.waySections && message.waySections.length))
-                    message.waySections = [];
-                message.waySections.push($root.WaySection.decode(reader, reader.uint32()));
-                break;
-            case 2:
-                message.name = reader.string();
-                break;
+            case 1: {
+                    if (!(message.waySections && message.waySections.length))
+                        message.waySections = [];
+                    message.waySections.push($root.WaySection.decode(reader, reader.uint32()));
+                    break;
+                }
+            case 2: {
+                    message.name = reader.string();
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -1233,8 +1311,8 @@ $root.OSMMetadata = (function() {
         if (message.waySections != null && message.hasOwnProperty("waySections")) {
             if (!Array.isArray(message.waySections))
                 return "waySections: array expected";
-            for (var i = 0; i < message.waySections.length; ++i) {
-                var error = $root.WaySection.verify(message.waySections[i]);
+            for (let i = 0; i < message.waySections.length; ++i) {
+                let error = $root.WaySection.verify(message.waySections[i]);
                 if (error)
                     return "waySections." + error;
             }
@@ -1256,12 +1334,12 @@ $root.OSMMetadata = (function() {
     OSMMetadata.fromObject = function fromObject(object) {
         if (object instanceof $root.OSMMetadata)
             return object;
-        var message = new $root.OSMMetadata();
+        let message = new $root.OSMMetadata();
         if (object.waySections) {
             if (!Array.isArray(object.waySections))
                 throw TypeError(".OSMMetadata.waySections: array expected");
             message.waySections = [];
-            for (var i = 0; i < object.waySections.length; ++i) {
+            for (let i = 0; i < object.waySections.length; ++i) {
                 if (typeof object.waySections[i] !== "object")
                     throw TypeError(".OSMMetadata.waySections: object expected");
                 message.waySections[i] = $root.WaySection.fromObject(object.waySections[i]);
@@ -1284,14 +1362,14 @@ $root.OSMMetadata = (function() {
     OSMMetadata.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.arrays || options.defaults)
             object.waySections = [];
         if (options.defaults)
             object.name = "";
         if (message.waySections && message.waySections.length) {
             object.waySections = [];
-            for (var j = 0; j < message.waySections.length; ++j)
+            for (let j = 0; j < message.waySections.length; ++j)
                 object.waySections[j] = $root.WaySection.toObject(message.waySections[j], options);
         }
         if (message.name != null && message.hasOwnProperty("name"))
@@ -1310,10 +1388,25 @@ $root.OSMMetadata = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for OSMMetadata
+     * @function getTypeUrl
+     * @memberof OSMMetadata
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    OSMMetadata.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/OSMMetadata";
+    };
+
     return OSMMetadata;
 })();
 
-$root.SharedStreetsMetadata = (function() {
+export const SharedStreetsMetadata = $root.SharedStreetsMetadata = (() => {
 
     /**
      * Properties of a SharedStreetsMetadata.
@@ -1335,7 +1428,7 @@ $root.SharedStreetsMetadata = (function() {
     function SharedStreetsMetadata(properties) {
         this.gisMetadata = [];
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -1388,12 +1481,12 @@ $root.SharedStreetsMetadata = (function() {
     SharedStreetsMetadata.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.geometryId != null && message.hasOwnProperty("geometryId"))
+        if (message.geometryId != null && Object.hasOwnProperty.call(message, "geometryId"))
             writer.uint32(/* id 1, wireType 2 =*/10).string(message.geometryId);
-        if (message.osmMetadata != null && message.hasOwnProperty("osmMetadata"))
+        if (message.osmMetadata != null && Object.hasOwnProperty.call(message, "osmMetadata"))
             $root.OSMMetadata.encode(message.osmMetadata, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
         if (message.gisMetadata != null && message.gisMetadata.length)
-            for (var i = 0; i < message.gisMetadata.length; ++i)
+            for (let i = 0; i < message.gisMetadata.length; ++i)
                 $root.GISMetadata.encode(message.gisMetadata[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
         return writer;
     };
@@ -1425,21 +1518,24 @@ $root.SharedStreetsMetadata = (function() {
     SharedStreetsMetadata.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SharedStreetsMetadata();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.SharedStreetsMetadata();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.geometryId = reader.string();
-                break;
-            case 2:
-                message.osmMetadata = $root.OSMMetadata.decode(reader, reader.uint32());
-                break;
-            case 3:
-                if (!(message.gisMetadata && message.gisMetadata.length))
-                    message.gisMetadata = [];
-                message.gisMetadata.push($root.GISMetadata.decode(reader, reader.uint32()));
-                break;
+            case 1: {
+                    message.geometryId = reader.string();
+                    break;
+                }
+            case 2: {
+                    message.osmMetadata = $root.OSMMetadata.decode(reader, reader.uint32());
+                    break;
+                }
+            case 3: {
+                    if (!(message.gisMetadata && message.gisMetadata.length))
+                        message.gisMetadata = [];
+                    message.gisMetadata.push($root.GISMetadata.decode(reader, reader.uint32()));
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -1479,15 +1575,15 @@ $root.SharedStreetsMetadata = (function() {
             if (!$util.isString(message.geometryId))
                 return "geometryId: string expected";
         if (message.osmMetadata != null && message.hasOwnProperty("osmMetadata")) {
-            var error = $root.OSMMetadata.verify(message.osmMetadata);
+            let error = $root.OSMMetadata.verify(message.osmMetadata);
             if (error)
                 return "osmMetadata." + error;
         }
         if (message.gisMetadata != null && message.hasOwnProperty("gisMetadata")) {
             if (!Array.isArray(message.gisMetadata))
                 return "gisMetadata: array expected";
-            for (var i = 0; i < message.gisMetadata.length; ++i) {
-                var error = $root.GISMetadata.verify(message.gisMetadata[i]);
+            for (let i = 0; i < message.gisMetadata.length; ++i) {
+                let error = $root.GISMetadata.verify(message.gisMetadata[i]);
                 if (error)
                     return "gisMetadata." + error;
             }
@@ -1506,7 +1602,7 @@ $root.SharedStreetsMetadata = (function() {
     SharedStreetsMetadata.fromObject = function fromObject(object) {
         if (object instanceof $root.SharedStreetsMetadata)
             return object;
-        var message = new $root.SharedStreetsMetadata();
+        let message = new $root.SharedStreetsMetadata();
         if (object.geometryId != null)
             message.geometryId = String(object.geometryId);
         if (object.osmMetadata != null) {
@@ -1518,7 +1614,7 @@ $root.SharedStreetsMetadata = (function() {
             if (!Array.isArray(object.gisMetadata))
                 throw TypeError(".SharedStreetsMetadata.gisMetadata: array expected");
             message.gisMetadata = [];
-            for (var i = 0; i < object.gisMetadata.length; ++i) {
+            for (let i = 0; i < object.gisMetadata.length; ++i) {
                 if (typeof object.gisMetadata[i] !== "object")
                     throw TypeError(".SharedStreetsMetadata.gisMetadata: object expected");
                 message.gisMetadata[i] = $root.GISMetadata.fromObject(object.gisMetadata[i]);
@@ -1539,7 +1635,7 @@ $root.SharedStreetsMetadata = (function() {
     SharedStreetsMetadata.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.arrays || options.defaults)
             object.gisMetadata = [];
         if (options.defaults) {
@@ -1552,7 +1648,7 @@ $root.SharedStreetsMetadata = (function() {
             object.osmMetadata = $root.OSMMetadata.toObject(message.osmMetadata, options);
         if (message.gisMetadata && message.gisMetadata.length) {
             object.gisMetadata = [];
-            for (var j = 0; j < message.gisMetadata.length; ++j)
+            for (let j = 0; j < message.gisMetadata.length; ++j)
                 object.gisMetadata[j] = $root.GISMetadata.toObject(message.gisMetadata[j], options);
         }
         return object;
@@ -1569,10 +1665,25 @@ $root.SharedStreetsMetadata = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for SharedStreetsMetadata
+     * @function getTypeUrl
+     * @memberof SharedStreetsMetadata
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    SharedStreetsMetadata.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/SharedStreetsMetadata";
+    };
+
     return SharedStreetsMetadata;
 })();
 
-$root.SharedStreetsGeometry = (function() {
+export const SharedStreetsGeometry = $root.SharedStreetsGeometry = (() => {
 
     /**
      * Properties of a SharedStreetsGeometry.
@@ -1598,7 +1709,7 @@ $root.SharedStreetsGeometry = (function() {
     function SharedStreetsGeometry(properties) {
         this.lonlats = [];
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -1683,21 +1794,21 @@ $root.SharedStreetsGeometry = (function() {
     SharedStreetsGeometry.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.id != null && message.hasOwnProperty("id"))
+        if (message.id != null && Object.hasOwnProperty.call(message, "id"))
             writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-        if (message.fromIntersectionId != null && message.hasOwnProperty("fromIntersectionId"))
+        if (message.fromIntersectionId != null && Object.hasOwnProperty.call(message, "fromIntersectionId"))
             writer.uint32(/* id 2, wireType 2 =*/18).string(message.fromIntersectionId);
-        if (message.toIntersectionId != null && message.hasOwnProperty("toIntersectionId"))
+        if (message.toIntersectionId != null && Object.hasOwnProperty.call(message, "toIntersectionId"))
             writer.uint32(/* id 3, wireType 2 =*/26).string(message.toIntersectionId);
-        if (message.forwardReferenceId != null && message.hasOwnProperty("forwardReferenceId"))
+        if (message.forwardReferenceId != null && Object.hasOwnProperty.call(message, "forwardReferenceId"))
             writer.uint32(/* id 4, wireType 2 =*/34).string(message.forwardReferenceId);
-        if (message.backReferenceId != null && message.hasOwnProperty("backReferenceId"))
+        if (message.backReferenceId != null && Object.hasOwnProperty.call(message, "backReferenceId"))
             writer.uint32(/* id 5, wireType 2 =*/42).string(message.backReferenceId);
-        if (message.roadClass != null && message.hasOwnProperty("roadClass"))
+        if (message.roadClass != null && Object.hasOwnProperty.call(message, "roadClass"))
             writer.uint32(/* id 6, wireType 0 =*/48).int32(message.roadClass);
         if (message.lonlats != null && message.lonlats.length) {
             writer.uint32(/* id 7, wireType 2 =*/58).fork();
-            for (var i = 0; i < message.lonlats.length; ++i)
+            for (let i = 0; i < message.lonlats.length; ++i)
                 writer.double(message.lonlats[i]);
             writer.ldelim();
         }
@@ -1731,38 +1842,45 @@ $root.SharedStreetsGeometry = (function() {
     SharedStreetsGeometry.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SharedStreetsGeometry();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.SharedStreetsGeometry();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.id = reader.string();
-                break;
-            case 2:
-                message.fromIntersectionId = reader.string();
-                break;
-            case 3:
-                message.toIntersectionId = reader.string();
-                break;
-            case 4:
-                message.forwardReferenceId = reader.string();
-                break;
-            case 5:
-                message.backReferenceId = reader.string();
-                break;
-            case 6:
-                message.roadClass = reader.int32();
-                break;
-            case 7:
-                if (!(message.lonlats && message.lonlats.length))
-                    message.lonlats = [];
-                if ((tag & 7) === 2) {
-                    var end2 = reader.uint32() + reader.pos;
-                    while (reader.pos < end2)
+            case 1: {
+                    message.id = reader.string();
+                    break;
+                }
+            case 2: {
+                    message.fromIntersectionId = reader.string();
+                    break;
+                }
+            case 3: {
+                    message.toIntersectionId = reader.string();
+                    break;
+                }
+            case 4: {
+                    message.forwardReferenceId = reader.string();
+                    break;
+                }
+            case 5: {
+                    message.backReferenceId = reader.string();
+                    break;
+                }
+            case 6: {
+                    message.roadClass = reader.int32();
+                    break;
+                }
+            case 7: {
+                    if (!(message.lonlats && message.lonlats.length))
+                        message.lonlats = [];
+                    if ((tag & 7) === 2) {
+                        let end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.lonlats.push(reader.double());
+                    } else
                         message.lonlats.push(reader.double());
-                } else
-                    message.lonlats.push(reader.double());
-                break;
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -1831,7 +1949,7 @@ $root.SharedStreetsGeometry = (function() {
         if (message.lonlats != null && message.hasOwnProperty("lonlats")) {
             if (!Array.isArray(message.lonlats))
                 return "lonlats: array expected";
-            for (var i = 0; i < message.lonlats.length; ++i)
+            for (let i = 0; i < message.lonlats.length; ++i)
                 if (typeof message.lonlats[i] !== "number")
                     return "lonlats: number[] expected";
         }
@@ -1849,7 +1967,7 @@ $root.SharedStreetsGeometry = (function() {
     SharedStreetsGeometry.fromObject = function fromObject(object) {
         if (object instanceof $root.SharedStreetsGeometry)
             return object;
-        var message = new $root.SharedStreetsGeometry();
+        let message = new $root.SharedStreetsGeometry();
         if (object.id != null)
             message.id = String(object.id);
         if (object.fromIntersectionId != null)
@@ -1861,6 +1979,12 @@ $root.SharedStreetsGeometry = (function() {
         if (object.backReferenceId != null)
             message.backReferenceId = String(object.backReferenceId);
         switch (object.roadClass) {
+        default:
+            if (typeof object.roadClass === "number") {
+                message.roadClass = object.roadClass;
+                break;
+            }
+            break;
         case "Motorway":
         case 0:
             message.roadClass = 0;
@@ -1902,7 +2026,7 @@ $root.SharedStreetsGeometry = (function() {
             if (!Array.isArray(object.lonlats))
                 throw TypeError(".SharedStreetsGeometry.lonlats: array expected");
             message.lonlats = [];
-            for (var i = 0; i < object.lonlats.length; ++i)
+            for (let i = 0; i < object.lonlats.length; ++i)
                 message.lonlats[i] = Number(object.lonlats[i]);
         }
         return message;
@@ -1920,7 +2044,7 @@ $root.SharedStreetsGeometry = (function() {
     SharedStreetsGeometry.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.arrays || options.defaults)
             object.lonlats = [];
         if (options.defaults) {
@@ -1942,10 +2066,10 @@ $root.SharedStreetsGeometry = (function() {
         if (message.backReferenceId != null && message.hasOwnProperty("backReferenceId"))
             object.backReferenceId = message.backReferenceId;
         if (message.roadClass != null && message.hasOwnProperty("roadClass"))
-            object.roadClass = options.enums === String ? $root.RoadClass[message.roadClass] : message.roadClass;
+            object.roadClass = options.enums === String ? $root.RoadClass[message.roadClass] === undefined ? message.roadClass : $root.RoadClass[message.roadClass] : message.roadClass;
         if (message.lonlats && message.lonlats.length) {
             object.lonlats = [];
-            for (var j = 0; j < message.lonlats.length; ++j)
+            for (let j = 0; j < message.lonlats.length; ++j)
                 object.lonlats[j] = options.json && !isFinite(message.lonlats[j]) ? String(message.lonlats[j]) : message.lonlats[j];
         }
         return object;
@@ -1962,10 +2086,25 @@ $root.SharedStreetsGeometry = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for SharedStreetsGeometry
+     * @function getTypeUrl
+     * @memberof SharedStreetsGeometry
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    SharedStreetsGeometry.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/SharedStreetsGeometry";
+    };
+
     return SharedStreetsGeometry;
 })();
 
-$root.LocationReference = (function() {
+export const LocationReference = $root.LocationReference = (() => {
 
     /**
      * Properties of a LocationReference.
@@ -1989,7 +2128,7 @@ $root.LocationReference = (function() {
      */
     function LocationReference(properties) {
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -2020,30 +2159,30 @@ $root.LocationReference = (function() {
 
     /**
      * LocationReference inboundBearing.
-     * @member {number} inboundBearing
+     * @member {number|null|undefined} inboundBearing
      * @memberof LocationReference
      * @instance
      */
-    LocationReference.prototype.inboundBearing = 0;
+    LocationReference.prototype.inboundBearing = null;
 
     /**
      * LocationReference outboundBearing.
-     * @member {number} outboundBearing
+     * @member {number|null|undefined} outboundBearing
      * @memberof LocationReference
      * @instance
      */
-    LocationReference.prototype.outboundBearing = 0;
+    LocationReference.prototype.outboundBearing = null;
 
     /**
      * LocationReference distanceToNextRef.
-     * @member {number} distanceToNextRef
+     * @member {number|null|undefined} distanceToNextRef
      * @memberof LocationReference
      * @instance
      */
-    LocationReference.prototype.distanceToNextRef = 0;
+    LocationReference.prototype.distanceToNextRef = null;
 
     // OneOf field names bound to virtual getters and setters
-    var $oneOfFields;
+    let $oneOfFields;
 
     /**
      * LocationReference inboundBearingPresent.
@@ -2102,17 +2241,17 @@ $root.LocationReference = (function() {
     LocationReference.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.intersectionId != null && message.hasOwnProperty("intersectionId"))
+        if (message.intersectionId != null && Object.hasOwnProperty.call(message, "intersectionId"))
             writer.uint32(/* id 1, wireType 2 =*/10).string(message.intersectionId);
-        if (message.lon != null && message.hasOwnProperty("lon"))
+        if (message.lon != null && Object.hasOwnProperty.call(message, "lon"))
             writer.uint32(/* id 2, wireType 1 =*/17).double(message.lon);
-        if (message.lat != null && message.hasOwnProperty("lat"))
+        if (message.lat != null && Object.hasOwnProperty.call(message, "lat"))
             writer.uint32(/* id 3, wireType 1 =*/25).double(message.lat);
-        if (message.inboundBearing != null && message.hasOwnProperty("inboundBearing"))
+        if (message.inboundBearing != null && Object.hasOwnProperty.call(message, "inboundBearing"))
             writer.uint32(/* id 4, wireType 0 =*/32).int32(message.inboundBearing);
-        if (message.outboundBearing != null && message.hasOwnProperty("outboundBearing"))
+        if (message.outboundBearing != null && Object.hasOwnProperty.call(message, "outboundBearing"))
             writer.uint32(/* id 5, wireType 0 =*/40).int32(message.outboundBearing);
-        if (message.distanceToNextRef != null && message.hasOwnProperty("distanceToNextRef"))
+        if (message.distanceToNextRef != null && Object.hasOwnProperty.call(message, "distanceToNextRef"))
             writer.uint32(/* id 6, wireType 0 =*/48).int32(message.distanceToNextRef);
         return writer;
     };
@@ -2144,28 +2283,34 @@ $root.LocationReference = (function() {
     LocationReference.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.LocationReference();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.LocationReference();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.intersectionId = reader.string();
-                break;
-            case 2:
-                message.lon = reader.double();
-                break;
-            case 3:
-                message.lat = reader.double();
-                break;
-            case 4:
-                message.inboundBearing = reader.int32();
-                break;
-            case 5:
-                message.outboundBearing = reader.int32();
-                break;
-            case 6:
-                message.distanceToNextRef = reader.int32();
-                break;
+            case 1: {
+                    message.intersectionId = reader.string();
+                    break;
+                }
+            case 2: {
+                    message.lon = reader.double();
+                    break;
+                }
+            case 3: {
+                    message.lat = reader.double();
+                    break;
+                }
+            case 4: {
+                    message.inboundBearing = reader.int32();
+                    break;
+                }
+            case 5: {
+                    message.outboundBearing = reader.int32();
+                    break;
+                }
+            case 6: {
+                    message.distanceToNextRef = reader.int32();
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -2201,7 +2346,7 @@ $root.LocationReference = (function() {
     LocationReference.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
-        var properties = {};
+        let properties = {};
         if (message.intersectionId != null && message.hasOwnProperty("intersectionId"))
             if (!$util.isString(message.intersectionId))
                 return "intersectionId: string expected";
@@ -2240,7 +2385,7 @@ $root.LocationReference = (function() {
     LocationReference.fromObject = function fromObject(object) {
         if (object instanceof $root.LocationReference)
             return object;
-        var message = new $root.LocationReference();
+        let message = new $root.LocationReference();
         if (object.intersectionId != null)
             message.intersectionId = String(object.intersectionId);
         if (object.lon != null)
@@ -2268,7 +2413,7 @@ $root.LocationReference = (function() {
     LocationReference.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.defaults) {
             object.intersectionId = "";
             object.lon = 0;
@@ -2309,10 +2454,25 @@ $root.LocationReference = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for LocationReference
+     * @function getTypeUrl
+     * @memberof LocationReference
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    LocationReference.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/LocationReference";
+    };
+
     return LocationReference;
 })();
 
-$root.SharedStreetsReference = (function() {
+export const SharedStreetsReference = $root.SharedStreetsReference = (() => {
 
     /**
      * Properties of a SharedStreetsReference.
@@ -2335,7 +2495,7 @@ $root.SharedStreetsReference = (function() {
     function SharedStreetsReference(properties) {
         this.locationReferences = [];
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -2396,14 +2556,14 @@ $root.SharedStreetsReference = (function() {
     SharedStreetsReference.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.id != null && message.hasOwnProperty("id"))
+        if (message.id != null && Object.hasOwnProperty.call(message, "id"))
             writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-        if (message.geometryId != null && message.hasOwnProperty("geometryId"))
+        if (message.geometryId != null && Object.hasOwnProperty.call(message, "geometryId"))
             writer.uint32(/* id 2, wireType 2 =*/18).string(message.geometryId);
-        if (message.formOfWay != null && message.hasOwnProperty("formOfWay"))
+        if (message.formOfWay != null && Object.hasOwnProperty.call(message, "formOfWay"))
             writer.uint32(/* id 3, wireType 0 =*/24).int32(message.formOfWay);
         if (message.locationReferences != null && message.locationReferences.length)
-            for (var i = 0; i < message.locationReferences.length; ++i)
+            for (let i = 0; i < message.locationReferences.length; ++i)
                 $root.LocationReference.encode(message.locationReferences[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
         return writer;
     };
@@ -2435,24 +2595,28 @@ $root.SharedStreetsReference = (function() {
     SharedStreetsReference.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SharedStreetsReference();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.SharedStreetsReference();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.id = reader.string();
-                break;
-            case 2:
-                message.geometryId = reader.string();
-                break;
-            case 3:
-                message.formOfWay = reader.int32();
-                break;
-            case 4:
-                if (!(message.locationReferences && message.locationReferences.length))
-                    message.locationReferences = [];
-                message.locationReferences.push($root.LocationReference.decode(reader, reader.uint32()));
-                break;
+            case 1: {
+                    message.id = reader.string();
+                    break;
+                }
+            case 2: {
+                    message.geometryId = reader.string();
+                    break;
+                }
+            case 3: {
+                    message.formOfWay = reader.int32();
+                    break;
+                }
+            case 4: {
+                    if (!(message.locationReferences && message.locationReferences.length))
+                        message.locationReferences = [];
+                    message.locationReferences.push($root.LocationReference.decode(reader, reader.uint32()));
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -2511,8 +2675,8 @@ $root.SharedStreetsReference = (function() {
         if (message.locationReferences != null && message.hasOwnProperty("locationReferences")) {
             if (!Array.isArray(message.locationReferences))
                 return "locationReferences: array expected";
-            for (var i = 0; i < message.locationReferences.length; ++i) {
-                var error = $root.LocationReference.verify(message.locationReferences[i]);
+            for (let i = 0; i < message.locationReferences.length; ++i) {
+                let error = $root.LocationReference.verify(message.locationReferences[i]);
                 if (error)
                     return "locationReferences." + error;
             }
@@ -2531,12 +2695,18 @@ $root.SharedStreetsReference = (function() {
     SharedStreetsReference.fromObject = function fromObject(object) {
         if (object instanceof $root.SharedStreetsReference)
             return object;
-        var message = new $root.SharedStreetsReference();
+        let message = new $root.SharedStreetsReference();
         if (object.id != null)
             message.id = String(object.id);
         if (object.geometryId != null)
             message.geometryId = String(object.geometryId);
         switch (object.formOfWay) {
+        default:
+            if (typeof object.formOfWay === "number") {
+                message.formOfWay = object.formOfWay;
+                break;
+            }
+            break;
         case "Undefined":
         case 0:
             message.formOfWay = 0;
@@ -2574,7 +2744,7 @@ $root.SharedStreetsReference = (function() {
             if (!Array.isArray(object.locationReferences))
                 throw TypeError(".SharedStreetsReference.locationReferences: array expected");
             message.locationReferences = [];
-            for (var i = 0; i < object.locationReferences.length; ++i) {
+            for (let i = 0; i < object.locationReferences.length; ++i) {
                 if (typeof object.locationReferences[i] !== "object")
                     throw TypeError(".SharedStreetsReference.locationReferences: object expected");
                 message.locationReferences[i] = $root.LocationReference.fromObject(object.locationReferences[i]);
@@ -2595,7 +2765,7 @@ $root.SharedStreetsReference = (function() {
     SharedStreetsReference.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.arrays || options.defaults)
             object.locationReferences = [];
         if (options.defaults) {
@@ -2608,10 +2778,10 @@ $root.SharedStreetsReference = (function() {
         if (message.geometryId != null && message.hasOwnProperty("geometryId"))
             object.geometryId = message.geometryId;
         if (message.formOfWay != null && message.hasOwnProperty("formOfWay"))
-            object.formOfWay = options.enums === String ? $root.SharedStreetsReference.FormOfWay[message.formOfWay] : message.formOfWay;
+            object.formOfWay = options.enums === String ? $root.SharedStreetsReference.FormOfWay[message.formOfWay] === undefined ? message.formOfWay : $root.SharedStreetsReference.FormOfWay[message.formOfWay] : message.formOfWay;
         if (message.locationReferences && message.locationReferences.length) {
             object.locationReferences = [];
-            for (var j = 0; j < message.locationReferences.length; ++j)
+            for (let j = 0; j < message.locationReferences.length; ++j)
                 object.locationReferences[j] = $root.LocationReference.toObject(message.locationReferences[j], options);
         }
         return object;
@@ -2629,9 +2799,24 @@ $root.SharedStreetsReference = (function() {
     };
 
     /**
+     * Gets the default type url for SharedStreetsReference
+     * @function getTypeUrl
+     * @memberof SharedStreetsReference
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    SharedStreetsReference.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/SharedStreetsReference";
+    };
+
+    /**
      * FormOfWay enum.
      * @name SharedStreetsReference.FormOfWay
-     * @enum {string}
+     * @enum {number}
      * @property {number} Undefined=0 Undefined value
      * @property {number} Motorway=1 Motorway value
      * @property {number} MultipleCarriageway=2 MultipleCarriageway value
@@ -2642,7 +2827,7 @@ $root.SharedStreetsReference = (function() {
      * @property {number} Other=7 Other value
      */
     SharedStreetsReference.FormOfWay = (function() {
-        var valuesById = {}, values = Object.create(valuesById);
+        const valuesById = {}, values = Object.create(valuesById);
         values[valuesById[0] = "Undefined"] = 0;
         values[valuesById[1] = "Motorway"] = 1;
         values[valuesById[2] = "MultipleCarriageway"] = 2;
@@ -2657,7 +2842,7 @@ $root.SharedStreetsReference = (function() {
     return SharedStreetsReference;
 })();
 
-$root.SharedStreetsIntersection = (function() {
+export const SharedStreetsIntersection = $root.SharedStreetsIntersection = (() => {
 
     /**
      * Properties of a SharedStreetsIntersection.
@@ -2683,7 +2868,7 @@ $root.SharedStreetsIntersection = (function() {
         this.inboundReferenceIds = [];
         this.outboundReferenceIds = [];
         if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -2760,19 +2945,19 @@ $root.SharedStreetsIntersection = (function() {
     SharedStreetsIntersection.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.id != null && message.hasOwnProperty("id"))
+        if (message.id != null && Object.hasOwnProperty.call(message, "id"))
             writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-        if (message.nodeId != null && message.hasOwnProperty("nodeId"))
+        if (message.nodeId != null && Object.hasOwnProperty.call(message, "nodeId"))
             writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.nodeId);
-        if (message.lon != null && message.hasOwnProperty("lon"))
+        if (message.lon != null && Object.hasOwnProperty.call(message, "lon"))
             writer.uint32(/* id 3, wireType 1 =*/25).double(message.lon);
-        if (message.lat != null && message.hasOwnProperty("lat"))
+        if (message.lat != null && Object.hasOwnProperty.call(message, "lat"))
             writer.uint32(/* id 4, wireType 1 =*/33).double(message.lat);
         if (message.inboundReferenceIds != null && message.inboundReferenceIds.length)
-            for (var i = 0; i < message.inboundReferenceIds.length; ++i)
+            for (let i = 0; i < message.inboundReferenceIds.length; ++i)
                 writer.uint32(/* id 5, wireType 2 =*/42).string(message.inboundReferenceIds[i]);
         if (message.outboundReferenceIds != null && message.outboundReferenceIds.length)
-            for (var i = 0; i < message.outboundReferenceIds.length; ++i)
+            for (let i = 0; i < message.outboundReferenceIds.length; ++i)
                 writer.uint32(/* id 6, wireType 2 =*/50).string(message.outboundReferenceIds[i]);
         return writer;
     };
@@ -2804,32 +2989,38 @@ $root.SharedStreetsIntersection = (function() {
     SharedStreetsIntersection.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SharedStreetsIntersection();
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.SharedStreetsIntersection();
         while (reader.pos < end) {
-            var tag = reader.uint32();
+            let tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.id = reader.string();
-                break;
-            case 2:
-                message.nodeId = reader.uint64();
-                break;
-            case 3:
-                message.lon = reader.double();
-                break;
-            case 4:
-                message.lat = reader.double();
-                break;
-            case 5:
-                if (!(message.inboundReferenceIds && message.inboundReferenceIds.length))
-                    message.inboundReferenceIds = [];
-                message.inboundReferenceIds.push(reader.string());
-                break;
-            case 6:
-                if (!(message.outboundReferenceIds && message.outboundReferenceIds.length))
-                    message.outboundReferenceIds = [];
-                message.outboundReferenceIds.push(reader.string());
-                break;
+            case 1: {
+                    message.id = reader.string();
+                    break;
+                }
+            case 2: {
+                    message.nodeId = reader.uint64();
+                    break;
+                }
+            case 3: {
+                    message.lon = reader.double();
+                    break;
+                }
+            case 4: {
+                    message.lat = reader.double();
+                    break;
+                }
+            case 5: {
+                    if (!(message.inboundReferenceIds && message.inboundReferenceIds.length))
+                        message.inboundReferenceIds = [];
+                    message.inboundReferenceIds.push(reader.string());
+                    break;
+                }
+            case 6: {
+                    if (!(message.outboundReferenceIds && message.outboundReferenceIds.length))
+                        message.outboundReferenceIds = [];
+                    message.outboundReferenceIds.push(reader.string());
+                    break;
+                }
             default:
                 reader.skipType(tag & 7);
                 break;
@@ -2880,14 +3071,14 @@ $root.SharedStreetsIntersection = (function() {
         if (message.inboundReferenceIds != null && message.hasOwnProperty("inboundReferenceIds")) {
             if (!Array.isArray(message.inboundReferenceIds))
                 return "inboundReferenceIds: array expected";
-            for (var i = 0; i < message.inboundReferenceIds.length; ++i)
+            for (let i = 0; i < message.inboundReferenceIds.length; ++i)
                 if (!$util.isString(message.inboundReferenceIds[i]))
                     return "inboundReferenceIds: string[] expected";
         }
         if (message.outboundReferenceIds != null && message.hasOwnProperty("outboundReferenceIds")) {
             if (!Array.isArray(message.outboundReferenceIds))
                 return "outboundReferenceIds: array expected";
-            for (var i = 0; i < message.outboundReferenceIds.length; ++i)
+            for (let i = 0; i < message.outboundReferenceIds.length; ++i)
                 if (!$util.isString(message.outboundReferenceIds[i]))
                     return "outboundReferenceIds: string[] expected";
         }
@@ -2905,7 +3096,7 @@ $root.SharedStreetsIntersection = (function() {
     SharedStreetsIntersection.fromObject = function fromObject(object) {
         if (object instanceof $root.SharedStreetsIntersection)
             return object;
-        var message = new $root.SharedStreetsIntersection();
+        let message = new $root.SharedStreetsIntersection();
         if (object.id != null)
             message.id = String(object.id);
         if (object.nodeId != null)
@@ -2925,14 +3116,14 @@ $root.SharedStreetsIntersection = (function() {
             if (!Array.isArray(object.inboundReferenceIds))
                 throw TypeError(".SharedStreetsIntersection.inboundReferenceIds: array expected");
             message.inboundReferenceIds = [];
-            for (var i = 0; i < object.inboundReferenceIds.length; ++i)
+            for (let i = 0; i < object.inboundReferenceIds.length; ++i)
                 message.inboundReferenceIds[i] = String(object.inboundReferenceIds[i]);
         }
         if (object.outboundReferenceIds) {
             if (!Array.isArray(object.outboundReferenceIds))
                 throw TypeError(".SharedStreetsIntersection.outboundReferenceIds: array expected");
             message.outboundReferenceIds = [];
-            for (var i = 0; i < object.outboundReferenceIds.length; ++i)
+            for (let i = 0; i < object.outboundReferenceIds.length; ++i)
                 message.outboundReferenceIds[i] = String(object.outboundReferenceIds[i]);
         }
         return message;
@@ -2950,7 +3141,7 @@ $root.SharedStreetsIntersection = (function() {
     SharedStreetsIntersection.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        var object = {};
+        let object = {};
         if (options.arrays || options.defaults) {
             object.inboundReferenceIds = [];
             object.outboundReferenceIds = [];
@@ -2958,7 +3149,7 @@ $root.SharedStreetsIntersection = (function() {
         if (options.defaults) {
             object.id = "";
             if ($util.Long) {
-                var long = new $util.Long(0, 0, true);
+                let long = new $util.Long(0, 0, true);
                 object.nodeId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
             } else
                 object.nodeId = options.longs === String ? "0" : 0;
@@ -2978,12 +3169,12 @@ $root.SharedStreetsIntersection = (function() {
             object.lat = options.json && !isFinite(message.lat) ? String(message.lat) : message.lat;
         if (message.inboundReferenceIds && message.inboundReferenceIds.length) {
             object.inboundReferenceIds = [];
-            for (var j = 0; j < message.inboundReferenceIds.length; ++j)
+            for (let j = 0; j < message.inboundReferenceIds.length; ++j)
                 object.inboundReferenceIds[j] = message.inboundReferenceIds[j];
         }
         if (message.outboundReferenceIds && message.outboundReferenceIds.length) {
             object.outboundReferenceIds = [];
-            for (var j = 0; j < message.outboundReferenceIds.length; ++j)
+            for (let j = 0; j < message.outboundReferenceIds.length; ++j)
                 object.outboundReferenceIds[j] = message.outboundReferenceIds[j];
         }
         return object;
@@ -3000,6 +3191,22 @@ $root.SharedStreetsIntersection = (function() {
         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
     };
 
+    /**
+     * Gets the default type url for SharedStreetsIntersection
+     * @function getTypeUrl
+     * @memberof SharedStreetsIntersection
+     * @static
+     * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns {string} The default type url
+     */
+    SharedStreetsIntersection.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+        if (typeUrlPrefix === undefined) {
+            typeUrlPrefix = "type.googleapis.com";
+        }
+        return typeUrlPrefix + "/SharedStreetsIntersection";
+    };
+
     return SharedStreetsIntersection;
 })();
 
+export { $root as default };

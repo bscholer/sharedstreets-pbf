@@ -1,5 +1,5 @@
 import * as $protobuf from "protobufjs";
-
+import Long = require("long");
 /** Properties of a Delimiter. */
 export interface IDelimiter {
 
@@ -88,6 +88,13 @@ export class Delimiter implements IDelimiter {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for Delimiter
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Properties of a GISSectionMetadata. */
@@ -184,6 +191,13 @@ export class GISSectionMetadata implements IGISSectionMetadata {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for GISSectionMetadata
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Properties of a GISMetadata. */
@@ -280,6 +294,13 @@ export class GISMetadata implements IGISMetadata {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for GISMetadata
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** RoadClass enum. */
@@ -293,31 +314,6 @@ export enum RoadClass {
     Unclassified = 6,
     Service = 7,
     Other = 8
-}
-
-/** Properties of a WaySection. */
-export interface IWaySection {
-
-    /** WaySection wayId */
-    wayId?: (number|Long|null);
-
-    /** WaySection roadClass */
-    roadClass?: (RoadClass|null);
-
-    /** WaySection oneWay */
-    oneWay?: (boolean|null);
-
-    /** WaySection roundabout */
-    roundabout?: (boolean|null);
-
-    /** WaySection link */
-    link?: (boolean|null);
-
-    /** WaySection nodeIds */
-    nodeIds?: ((number|Long)[]|null);
-
-    /** WaySection name */
-    name?: (string|null);
 }
 
 /** Represents a WaySection. */
@@ -419,16 +415,13 @@ export class WaySection implements IWaySection {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
-}
 
-/** Properties of a OSMMetadata. */
-export interface IOSMMetadata {
-
-    /** OSMMetadata waySections */
-    waySections?: (IWaySection[]|null);
-
-    /** OSMMetadata name */
-    name?: (string|null);
+    /**
+     * Gets the default type url for WaySection
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Represents a OSMMetadata. */
@@ -515,19 +508,13 @@ export class OSMMetadata implements IOSMMetadata {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
-}
 
-/** Properties of a SharedStreetsMetadata. */
-export interface ISharedStreetsMetadata {
-
-    /** SharedStreetsMetadata geometryId */
-    geometryId?: (string|null);
-
-    /** SharedStreetsMetadata osmMetadata */
-    osmMetadata?: (IOSMMetadata|null);
-
-    /** SharedStreetsMetadata gisMetadata */
-    gisMetadata?: (IGISMetadata[]|null);
+    /**
+     * Gets the default type url for OSMMetadata
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Represents a SharedStreetsMetadata. */
@@ -617,31 +604,13 @@ export class SharedStreetsMetadata implements ISharedStreetsMetadata {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
-}
 
-/** Properties of a SharedStreetsGeometry. */
-export interface ISharedStreetsGeometry {
-
-    /** SharedStreetsGeometry id */
-    id?: (string|null);
-
-    /** SharedStreetsGeometry fromIntersectionId */
-    fromIntersectionId?: (string|null);
-
-    /** SharedStreetsGeometry toIntersectionId */
-    toIntersectionId?: (string|null);
-
-    /** SharedStreetsGeometry forwardReferenceId */
-    forwardReferenceId?: (string|null);
-
-    /** SharedStreetsGeometry backReferenceId */
-    backReferenceId?: (string|null);
-
-    /** SharedStreetsGeometry roadClass */
-    roadClass?: (RoadClass|null);
-
-    /** SharedStreetsGeometry lonlats */
-    lonlats?: (number[]|null);
+    /**
+     * Gets the default type url for SharedStreetsMetadata
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Represents a SharedStreetsGeometry. */
@@ -743,28 +712,13 @@ export class SharedStreetsGeometry implements ISharedStreetsGeometry {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
-}
 
-/** Properties of a LocationReference. */
-export interface ILocationReference {
-
-    /** LocationReference intersectionId */
-    intersectionId?: (string|null);
-
-    /** LocationReference lon */
-    lon?: (number|null);
-
-    /** LocationReference lat */
-    lat?: (number|null);
-
-    /** LocationReference inboundBearing */
-    inboundBearing?: (number|null);
-
-    /** LocationReference outboundBearing */
-    outboundBearing?: (number|null);
-
-    /** LocationReference distanceToNextRef */
-    distanceToNextRef?: (number|null);
+    /**
+     * Gets the default type url for SharedStreetsGeometry
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Represents a LocationReference. */
@@ -786,13 +740,13 @@ export class LocationReference implements ILocationReference {
     public lat: number;
 
     /** LocationReference inboundBearing. */
-    public inboundBearing: number;
+    public inboundBearing?: (number|null);
 
     /** LocationReference outboundBearing. */
-    public outboundBearing: number;
+    public outboundBearing?: (number|null);
 
     /** LocationReference distanceToNextRef. */
-    public distanceToNextRef: number;
+    public distanceToNextRef?: (number|null);
 
     /** LocationReference inboundBearingPresent. */
     public inboundBearingPresent?: "inboundBearing";
@@ -872,22 +826,13 @@ export class LocationReference implements ILocationReference {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
-}
 
-/** Properties of a SharedStreetsReference. */
-export interface ISharedStreetsReference {
-
-    /** SharedStreetsReference id */
-    id?: (string|null);
-
-    /** SharedStreetsReference geometryId */
-    geometryId?: (string|null);
-
-    /** SharedStreetsReference formOfWay */
-    formOfWay?: (SharedStreetsReference.FormOfWay|null);
-
-    /** SharedStreetsReference locationReferences */
-    locationReferences?: (ILocationReference[]|null);
+    /**
+     * Gets the default type url for LocationReference
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Represents a SharedStreetsReference. */
@@ -980,6 +925,13 @@ export class SharedStreetsReference implements ISharedStreetsReference {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for SharedStreetsReference
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 export namespace SharedStreetsReference {
@@ -995,28 +947,6 @@ export namespace SharedStreetsReference {
         SlipRoad = 6,
         Other = 7
     }
-}
-
-/** Properties of a SharedStreetsIntersection. */
-export interface ISharedStreetsIntersection {
-
-    /** SharedStreetsIntersection id */
-    id?: (string|null);
-
-    /** SharedStreetsIntersection nodeId */
-    nodeId?: (number|Long|null);
-
-    /** SharedStreetsIntersection lon */
-    lon?: (number|null);
-
-    /** SharedStreetsIntersection lat */
-    lat?: (number|null);
-
-    /** SharedStreetsIntersection inboundReferenceIds */
-    inboundReferenceIds?: (string[]|null);
-
-    /** SharedStreetsIntersection outboundReferenceIds */
-    outboundReferenceIds?: (string[]|null);
 }
 
 /** Represents a SharedStreetsIntersection. */
@@ -1115,4 +1045,11 @@ export class SharedStreetsIntersection implements ISharedStreetsIntersection {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for SharedStreetsIntersection
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }

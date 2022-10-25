@@ -1,5 +1,5 @@
 import * as $protobuf from "protobufjs";
-
+import Long = require("long");
 /** PeriodSize enum. */
 export enum PeriodSize {
     OneSecond = 0,
@@ -17,16 +17,6 @@ export enum PeriodSize {
     OneWeek = 12,
     OneMonth = 13,
     OneYear = 14
-}
-
-/** Properties of a TemporalPeriod. */
-export interface ITemporalPeriod {
-
-    /** TemporalPeriod periodSize */
-    periodSize?: (PeriodSize|null);
-
-    /** TemporalPeriod periodOffset */
-    periodOffset?: (number|Long|null);
 }
 
 /** Represents a TemporalPeriod. */
@@ -113,22 +103,13 @@ export class TemporalPeriod implements ITemporalPeriod {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
-}
 
-/** Properties of a WeeklyCycle. */
-export interface IWeeklyCycle {
-
-    /** WeeklyCycle year */
-    year?: (number|null);
-
-    /** WeeklyCycle month */
-    month?: (number|null);
-
-    /** WeeklyCycle day */
-    day?: (number|null);
-
-    /** WeeklyCycle periodSize */
-    periodSize?: (PeriodSize|null);
+    /**
+     * Gets the default type url for TemporalPeriod
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Represents a WeeklyCycle. */
@@ -221,16 +202,13 @@ export class WeeklyCycle implements IWeeklyCycle {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
-}
 
-/** Properties of a SpeedHistogram. */
-export interface ISpeedHistogram {
-
-    /** SpeedHistogram speedBin */
-    speedBin?: (number[]|null);
-
-    /** SpeedHistogram observationCount */
-    observationCount?: (number[]|null);
+    /**
+     * Gets the default type url for WeeklyCycle
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Represents a SpeedHistogram. */
@@ -317,34 +295,295 @@ export class SpeedHistogram implements ISpeedHistogram {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for SpeedHistogram
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
-/** Properties of a SharedStreetsWeeklySpeeds. */
-export interface ISharedStreetsWeeklySpeeds {
+/** Represents a SpeedHistogramByPeriod. */
+export class SpeedHistogramByPeriod implements ISpeedHistogramByPeriod {
 
-    /** SharedStreetsWeeklySpeeds referenceId */
-    referenceId?: (string|null);
+    /**
+     * Constructs a new SpeedHistogramByPeriod.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: ISpeedHistogramByPeriod);
 
-    /** SharedStreetsWeeklySpeeds year */
-    year?: (number|null);
+    /** SpeedHistogramByPeriod periodOffset. */
+    public periodOffset: number[];
 
-    /** SharedStreetsWeeklySpeeds month */
-    month?: (number|null);
+    /** SpeedHistogramByPeriod histogram. */
+    public histogram: ISpeedHistogram[];
 
-    /** SharedStreetsWeeklySpeeds day */
-    day?: (number|null);
+    /**
+     * Creates a new SpeedHistogramByPeriod instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns SpeedHistogramByPeriod instance
+     */
+    public static create(properties?: ISpeedHistogramByPeriod): SpeedHistogramByPeriod;
 
-    /** SharedStreetsWeeklySpeeds periodSize */
-    periodSize?: (PeriodSize|null);
+    /**
+     * Encodes the specified SpeedHistogramByPeriod message. Does not implicitly {@link SpeedHistogramByPeriod.verify|verify} messages.
+     * @param message SpeedHistogramByPeriod message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: ISpeedHistogramByPeriod, writer?: $protobuf.Writer): $protobuf.Writer;
 
-    /** SharedStreetsWeeklySpeeds scaledCounts */
-    scaledCounts?: (boolean|null);
+    /**
+     * Encodes the specified SpeedHistogramByPeriod message, length delimited. Does not implicitly {@link SpeedHistogramByPeriod.verify|verify} messages.
+     * @param message SpeedHistogramByPeriod message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: ISpeedHistogramByPeriod, writer?: $protobuf.Writer): $protobuf.Writer;
 
-    /** SharedStreetsWeeklySpeeds periodOffset */
-    periodOffset?: (number[]|null);
+    /**
+     * Decodes a SpeedHistogramByPeriod message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns SpeedHistogramByPeriod
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SpeedHistogramByPeriod;
 
-    /** SharedStreetsWeeklySpeeds speedsForPeriod */
-    speedsForPeriod?: (ISpeedHistogram[]|null);
+    /**
+     * Decodes a SpeedHistogramByPeriod message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns SpeedHistogramByPeriod
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SpeedHistogramByPeriod;
+
+    /**
+     * Verifies a SpeedHistogramByPeriod message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a SpeedHistogramByPeriod message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns SpeedHistogramByPeriod
+     */
+    public static fromObject(object: { [k: string]: any }): SpeedHistogramByPeriod;
+
+    /**
+     * Creates a plain object from a SpeedHistogramByPeriod message. Also converts values to other types if specified.
+     * @param message SpeedHistogramByPeriod
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: SpeedHistogramByPeriod, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this SpeedHistogramByPeriod to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for SpeedHistogramByPeriod
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
+}
+
+/** Represents a SpeedSummary. */
+export class SpeedSummary implements ISpeedSummary {
+
+    /**
+     * Constructs a new SpeedSummary.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: ISpeedSummary);
+
+    /** SpeedSummary meanSpead. */
+    public meanSpead: number;
+
+    /** SpeedSummary percentile. */
+    public percentile: number[];
+
+    /** SpeedSummary observationCount. */
+    public observationCount: number[];
+
+    /**
+     * Creates a new SpeedSummary instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns SpeedSummary instance
+     */
+    public static create(properties?: ISpeedSummary): SpeedSummary;
+
+    /**
+     * Encodes the specified SpeedSummary message. Does not implicitly {@link SpeedSummary.verify|verify} messages.
+     * @param message SpeedSummary message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: ISpeedSummary, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified SpeedSummary message, length delimited. Does not implicitly {@link SpeedSummary.verify|verify} messages.
+     * @param message SpeedSummary message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: ISpeedSummary, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a SpeedSummary message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns SpeedSummary
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SpeedSummary;
+
+    /**
+     * Decodes a SpeedSummary message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns SpeedSummary
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SpeedSummary;
+
+    /**
+     * Verifies a SpeedSummary message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a SpeedSummary message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns SpeedSummary
+     */
+    public static fromObject(object: { [k: string]: any }): SpeedSummary;
+
+    /**
+     * Creates a plain object from a SpeedSummary message. Also converts values to other types if specified.
+     * @param message SpeedSummary
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: SpeedSummary, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this SpeedSummary to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for SpeedSummary
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
+}
+
+/** Represents a SpeedSummaryByPeriod. */
+export class SpeedSummaryByPeriod implements ISpeedSummaryByPeriod {
+
+    /**
+     * Constructs a new SpeedSummaryByPeriod.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: ISpeedSummaryByPeriod);
+
+    /** SpeedSummaryByPeriod periodOffset. */
+    public periodOffset: number[];
+
+    /** SpeedSummaryByPeriod speedSummary. */
+    public speedSummary: ISpeedSummary[];
+
+    /**
+     * Creates a new SpeedSummaryByPeriod instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns SpeedSummaryByPeriod instance
+     */
+    public static create(properties?: ISpeedSummaryByPeriod): SpeedSummaryByPeriod;
+
+    /**
+     * Encodes the specified SpeedSummaryByPeriod message. Does not implicitly {@link SpeedSummaryByPeriod.verify|verify} messages.
+     * @param message SpeedSummaryByPeriod message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: ISpeedSummaryByPeriod, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified SpeedSummaryByPeriod message, length delimited. Does not implicitly {@link SpeedSummaryByPeriod.verify|verify} messages.
+     * @param message SpeedSummaryByPeriod message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: ISpeedSummaryByPeriod, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a SpeedSummaryByPeriod message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns SpeedSummaryByPeriod
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SpeedSummaryByPeriod;
+
+    /**
+     * Decodes a SpeedSummaryByPeriod message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns SpeedSummaryByPeriod
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SpeedSummaryByPeriod;
+
+    /**
+     * Verifies a SpeedSummaryByPeriod message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a SpeedSummaryByPeriod message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns SpeedSummaryByPeriod
+     */
+    public static fromObject(object: { [k: string]: any }): SpeedSummaryByPeriod;
+
+    /**
+     * Creates a plain object from a SpeedSummaryByPeriod message. Also converts values to other types if specified.
+     * @param message SpeedSummaryByPeriod
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: SpeedSummaryByPeriod, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this SpeedSummaryByPeriod to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for SpeedSummaryByPeriod
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Represents a SharedStreetsWeeklySpeeds. */
@@ -359,26 +598,26 @@ export class SharedStreetsWeeklySpeeds implements ISharedStreetsWeeklySpeeds {
     /** SharedStreetsWeeklySpeeds referenceId. */
     public referenceId: string;
 
-    /** SharedStreetsWeeklySpeeds year. */
-    public year: number;
-
-    /** SharedStreetsWeeklySpeeds month. */
-    public month: number;
-
-    /** SharedStreetsWeeklySpeeds day. */
-    public day: number;
-
     /** SharedStreetsWeeklySpeeds periodSize. */
     public periodSize: PeriodSize;
 
     /** SharedStreetsWeeklySpeeds scaledCounts. */
     public scaledCounts: boolean;
 
-    /** SharedStreetsWeeklySpeeds periodOffset. */
-    public periodOffset: number[];
+    /** SharedStreetsWeeklySpeeds referenceLength. */
+    public referenceLength: (number|Long);
 
-    /** SharedStreetsWeeklySpeeds speedsForPeriod. */
-    public speedsForPeriod: ISpeedHistogram[];
+    /** SharedStreetsWeeklySpeeds numberOfBins. */
+    public numberOfBins: number;
+
+    /** SharedStreetsWeeklySpeeds binPosition. */
+    public binPosition: number[];
+
+    /** SharedStreetsWeeklySpeeds speedsByPeriod. */
+    public speedsByPeriod: ISpeedHistogramByPeriod[];
+
+    /** SharedStreetsWeeklySpeeds speedSummaryByPeriod. */
+    public speedSummaryByPeriod: ISpeedSummaryByPeriod[];
 
     /**
      * Creates a new SharedStreetsWeeklySpeeds instance using the specified properties.
@@ -449,4 +688,11 @@ export class SharedStreetsWeeklySpeeds implements ISharedStreetsWeeklySpeeds {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for SharedStreetsWeeklySpeeds
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }

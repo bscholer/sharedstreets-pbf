@@ -1,5 +1,5 @@
 import * as $protobuf from "protobufjs";
-
+import Long = require("long");
 /** PeriodSize enum. */
 export enum PeriodSize {
     OneSecond = 0,
@@ -17,16 +17,6 @@ export enum PeriodSize {
     OneWeek = 12,
     OneMonth = 13,
     OneYear = 14
-}
-
-/** Properties of a TemporalPeriod. */
-export interface ITemporalPeriod {
-
-    /** TemporalPeriod periodSize */
-    periodSize?: (PeriodSize|null);
-
-    /** TemporalPeriod periodOffset */
-    periodOffset?: (number|Long|null);
 }
 
 /** Represents a TemporalPeriod. */
@@ -113,22 +103,13 @@ export class TemporalPeriod implements ITemporalPeriod {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
-}
 
-/** Properties of a WeeklyCycle. */
-export interface IWeeklyCycle {
-
-    /** WeeklyCycle year */
-    year?: (number|null);
-
-    /** WeeklyCycle month */
-    month?: (number|null);
-
-    /** WeeklyCycle day */
-    day?: (number|null);
-
-    /** WeeklyCycle periodSize */
-    periodSize?: (PeriodSize|null);
+    /**
+     * Gets the default type url for TemporalPeriod
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 /** Represents a WeeklyCycle. */
@@ -221,4 +202,11 @@ export class WeeklyCycle implements IWeeklyCycle {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for WeeklyCycle
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
