@@ -1,6 +1,6 @@
-import fs from "fs";
-import path from "path";
 import Benchmark from "benchmark";
+import * as fs from "fs";
+import * as path from "path";
 import * as sharedstreestsPbf from "./index.js";
 
 const geometryBuffer = fs.readFileSync(path.join("test", "in", "11-602-769.geometry.pbf"));

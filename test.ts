@@ -1,12 +1,10 @@
 // tslint:disable:variable-name
-// This lets us use __filename and __dirname, which we have to define ourselves because of ESM
 
 import * as fs from "fs";
 import { loadJsonFileSync } from "load-json-file";
-import path, { dirname } from "path";
+import path from "path";
 import { downloadTile, Layer } from "sharedstreets-download-tile";
 import test from "tape";
-import { fileURLToPath } from "url";
 import { writeJsonFileSync } from "write-json-file";
 import * as sharedstreetsPbf from "./index.js";
 
@@ -16,8 +14,8 @@ const [x, y, z] = tile;
 const domain = "tiles.sharedstreets.io/planet-180312";
 
 // tslint:disable-next-line:whitespace
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
 // Download Tile
 // Set Environment Variable `export DOWNLOAD=true` to regenerate

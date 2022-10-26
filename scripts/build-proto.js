@@ -18,7 +18,7 @@ glob.sync(path.join(__dirname, '..', 'sharedstreets-ref-system', 'proto', '*.pro
   const dts = path.join(__dirname, '..', 'proto', name + '.d.ts')
 
   // Create ProtobufJS Static Javascript
-  pbjs.main(['-t', 'static-module', '-w', 'es6', '-o', js, filepath])
+  pbjs.main(['-t', 'static-module', '-w', 'default', '-o', js, filepath])
 
   // Create ProtobufJS Typescript Definition
   pbts.main(['-n', '-o', dts, js])
